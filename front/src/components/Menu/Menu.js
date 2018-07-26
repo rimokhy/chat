@@ -19,13 +19,13 @@ class Menu extends Component {
                         <Link to='/'>Home</Link>
                     </h2>
                     <h2>
-                        <Link to='/category'>Bite</Link>
+                        <Link to='/category'>Category</Link>
                     </h2>
                     <h2>
-                        <Link to='/products'>Cu</Link>
+                        <Link to='/products'>Products</Link>
                     </h2>
                     <h2>
-                        <Link to='/login'>Back</Link>
+                        <Link to='/login'>Login</Link>
                     </h2>
                 </nav>
             </div>

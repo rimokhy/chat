@@ -3,7 +3,8 @@ import './App.css';
 import MenuButton from "./components/Menu/MenuButton";
 import Menu from "./components/Menu/Menu";
 
-import {Link, Route} from 'react-router-dom';
+import {Link, Route, Switch} from 'react-router-dom';
+
 /* Home component */
 const Home = () => (
     <div>
@@ -65,25 +66,30 @@ export default class App extends Component {
         return (
             <div>
                 <MenuButton onMenuButton={this.onMenuButton}/>
-                <Menu onMenuButton={this.onMenuButton}
-                      menuVisibility={this.state.visible}/>
-                <div>
-                    <p>Can you spot the item that doesn't belong?</p>
-                    <ul>
-                        <li>Lorem</li>
-                        <li>Ipsum</li>
-                        <li>Dolor</li>
-                        <li>Sit</li>
-                        <li>Bumblebees</li>
-                        <li>Aenean</li>
-                        <li>Consectetur</li>
-                    </ul>
+                <div id="flyoutMenu"
+                     className={this.state.visible ? 'show' : 'hide'}>
+                    <nav>
+                        <h2>
+                            <Link to='/'>Home</Link>
+                        </h2>
+                        <h2>
+                            <Link to='/category'>Category</Link>
+                        </h2>
+                        <h2>
+                            <Link to='/products'>Products</Link>
+                        </h2>
+                        <h2>
+                            <Link to='/login'>Login</Link>
+                        </h2>
+                    </nav>
                 </div>
-                <Route path="/" component={Home}/>
-                <Route path="/category" component={Category}/>
-                <Route path="/login" component={Products}/>
-                <Route path="/products" component={Zz}/>
-                <Route component={NotFound}/>
+                <Switch>
+                    <Route exact path="/" component={Home}/>
+                    <Route exact path="/category" component={Category}/>
+                    <Route exact path="/login" component={Products}/>
+                    <Route exact path="/products" component={Zz}/>
+                    <Route component={NotFound}/>
+                </Switch>
             </div>
         );
     }
