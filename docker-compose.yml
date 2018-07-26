@@ -1,0 +1,46 @@
+version: "3"
+
+networks:
+  aos:
+    driver: bridge
+
+services:
+  mongo:
+    image: mongo
+    container_name: aos-mongo
+    networks:
+      aos:
+        aliases:
+          - aos-mongo
+    ports:
+      - 27017:27017
+    volumes:
+      - ./config/mongo/mongod.conf:/etc/mongod.conf:ro
+      - ./log/mongo/mongod.log:/var/log/mongodb/mongod.log:ro
+      - ./data/mongo:/data/db:rw
+  api:
+    build: api
+    container_name: aos-api
+    networks:
+      aos:
+        aliases:
+          - aos-api
+    depends_on:
+      - mongo
+    ports:
+      - 8080:8080
+    environment:
+      - MONGO_URI=mongodb://aos-mongo
+  front:
+    build: front
+    container_name: aos-front
+    depends_on:
+      - api
+    networks:
+      aos:
+        aliases:
+          - aos-front
+    ports:
+      - 80:5000
+    environment:
+      - API_HOST=aos-api
