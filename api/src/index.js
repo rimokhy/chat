@@ -2,22 +2,18 @@ import express from 'express';
 import cors from 'cors';
 import {createServer} from 'http';
 import bodyParser from 'body-parser';
-
 import {graphqlExpress} from 'apollo-server-express';
 import expressPlayground from 'graphql-playground-middleware-express';
 import {execute, subscribe} from 'graphql';
 import {SubscriptionServer} from 'subscriptions-transport-ws';
-import OAuth2Endpoint from './oauth2/endpoint';
-import OAuth2Validation from './oauth2';
+import OAuth2Endpoint from './security/oauth2/endpoint';
+import OAuth2Validation from './security/oauth2';
+import AppSecurity from './security'
 import Schema from './schema';
 import {BASE_URI, WS_BASE_URI, PORT} from './config';
-import databaseInit from './database';
+import {dbConnect} from "./database";
 
-try {
-    databaseInit();
-} catch (e) {
-    console.error(`Mongo error : ${e}`);
-}
+dbConnect();
 
 const app = express();
 const server = createServer(app);
@@ -39,6 +35,7 @@ app.get(
     }),
 );
 
+AppSecurity(app);
 OAuth2Endpoint(app);
 OAuth2Validation(app);
 

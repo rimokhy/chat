@@ -29,7 +29,8 @@
     "mongoose": "^5.1.4",
     "request": "^2.83.0",
     "request-promise": "^4.2.2",
-    "subscriptions-transport-ws": "^0.9.9"
+    "subscriptions-transport-ws": "^0.9.9",
+    "uuid": "^3.3.2"
   },
   "scripts": {
     "start": "nodemon --exec babel-node src/index.js",

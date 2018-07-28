@@ -1,9 +1,14 @@
 import React, {Component} from 'react';
 import './App.css';
-import MenuButton from "./components/Menu/MenuButton";
-import Menu from "./components/Menu/Menu";
 
-import {Link, Route, Switch} from 'react-router-dom';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import {Route, Switch} from 'react-router-dom';
+import {AuthGuard} from "./services/AuthGuard";
+import Login from "./pages/login/Login";
+import CustomAppBar from './components/Menu/AppBar/CustomAppBar';
+import CustomDrawer from "./components/Menu/Drawer/CustomDrawer";
+import ErrorSnackbar from "./components/ErrorSnackbar";
+import Loading from "./components/Loading";
 
 /* Home component */
 const Home = () => (
@@ -22,7 +27,7 @@ const Category = () => (
 /* Products component */
 const Products = () => (
     <div>
-        <h2>Products</h2>
+        <h2>Log in ? wtf...</h2>
     </div>
 )
 
@@ -40,7 +45,7 @@ const NotFound = () => (
     </div>
 )
 
-export default class App extends Component {
+class App extends Component {
     constructor(props, context) {
         super(props, context);
         this.state = {
@@ -62,35 +67,43 @@ export default class App extends Component {
         e.stopPropagation();
     }
 
+    /*
+    <h2>
+    <Link to='/'>Home</Link>
+    </h2>
+    <h2>
+    <Link to='/category'>Category</Link>
+    </h2>
+    <h2>
+    <Link to='/products'>Products</Link>
+    </h2>
+    <h2>
+    <Link to='/login'>Login</Link>
+    </h2>
+    */
+
     render() {
         return (
-            <div>
-                <MenuButton onMenuButton={this.onMenuButton}/>
-                <div id="flyoutMenu"
-                     className={this.state.visible ? 'show' : 'hide'}>
-                    <nav>
-                        <h2>
-                            <Link to='/'>Home</Link>
-                        </h2>
-                        <h2>
-                            <Link to='/category'>Category</Link>
-                        </h2>
-                        <h2>
-                            <Link to='/products'>Products</Link>
-                        </h2>
-                        <h2>
-                            <Link to='/login'>Login</Link>
-                        </h2>
-                    </nav>
+            <React.Fragment>
+                <CssBaseline/>
+
+                <CustomAppBar/>
+                <CustomDrawer/>
+                <ErrorSnackbar/>
+                <Loading/>
+                <div>
+                    <Switch>
+                        <Route exact path="/login" component={Login}/>
+                        <AuthGuard exact path="/" component={Home}/>
+                        <AuthGuard exact path="/category" component={Category}/>
+                        <AuthGuard exact path="/products" component={Zz}/>
+                        <AuthGuard component={NotFound}/>
+                    </Switch>
                 </div>
-                <Switch>
-                    <Route exact path="/" component={Home}/>
-                    <Route exact path="/category" component={Category}/>
-                    <Route exact path="/login" component={Products}/>
-                    <Route exact path="/products" component={Zz}/>
-                    <Route component={NotFound}/>
-                </Switch>
-            </div>
+            </React.Fragment>
+
         );
     }
 }
+
+export default App;

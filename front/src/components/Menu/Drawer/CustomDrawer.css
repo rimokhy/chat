@@ -1,0 +1,13 @@
+.root {
+    flex-grow: 1;
+    width: 100%;
+    top: 0
+}
+
+.flex {
+    flex-grow: 1;
+}
+
+.menuButton {
+
+}

@@ -25,7 +25,7 @@ export default {
             payload.private = args.private;
         }
         let room = await new Room(payload).save();
-        room = await Room.findById(room._id).populate('users');
+        room = await Room.findById(room._id).populate('users', 'email username password _id');
         room.operation = Operation.Create;
         pubsub.publish(Events.room, room);
         return room;

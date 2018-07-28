@@ -9,7 +9,7 @@ async function dropCollection(model, name) {
     console.info(`Cleared ${name} collection : ${JSON.stringify(user)}`);
 }
 
-mongoose.connect(`${MONGO_URI}/${MONGO_DATABASE_NAME}`)
+export const dbConnect = () => mongoose.connect(`${MONGO_URI}/${MONGO_DATABASE_NAME}`)
     .then(async () => {
         console.log(`Successfully connected to mongo [${MONGO_DATABASE_NAME}]`);
 
@@ -17,7 +17,7 @@ mongoose.connect(`${MONGO_URI}/${MONGO_DATABASE_NAME}`)
             await dropCollection(User, 'user');
             await dropCollection(Token, 'token');
             const user = await new User({email: 'email', username: 'username'}).save();
-            const token = await new Token({user: user._id, accessToken: TOKEN_TEST}).save()
+            const token = await new Token({user: user._id, accessToken: 'lol'}).save()
             console.log(`Created token ${token}`)
         }
     })

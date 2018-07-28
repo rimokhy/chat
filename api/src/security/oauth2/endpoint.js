@@ -1,7 +1,7 @@
 import request from 'request-promise';
 import githubAuth from './github';
 import googleAuth from './google';
-import { User, Token } from '../models';
+import { User, Token } from '../../models/index';
 
 function fromParam(provider) {
   switch (provider) {
@@ -23,7 +23,7 @@ function bodyParser(body, returns) {
   return data;
 }
 
-function makeToken(tokenResponse, user) {
+export const makeToken = (tokenResponse, user) => {
   const token = {
     accessToken: tokenResponse.accessToken,
     user: user._id,
@@ -39,7 +39,7 @@ function makeToken(tokenResponse, user) {
     token.refreshToken = tokenResponse.refreshToken;
   }
   return token;
-}
+};
 
 export default (app) => {
   app.get('/auth/:provider', (req, res) => {
@@ -74,12 +74,14 @@ export default (app) => {
               let fetchedToken;
 
               if (fetchedUser === null) {
+                userInfo.username = userInfo.username ? userInfo.username : userInfo.email;
                 const insertedUser = await new User(userInfo).save();
                 fetchedToken = await new Token(makeToken(token, insertedUser)).save();
               } else {
                 fetchedToken = await Token.findOne({ user: fetchedUser._id });
               }
-              return res.send(fetchedToken);
+                const { accessToken, user } = fetchedToken;
+                res.send({accessToken, user});
             });
           } else {
             res.statusCode = response.statusCode;
