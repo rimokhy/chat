@@ -4,7 +4,6 @@ import React, {Component} from "react";
 import Actions from '../services/redux/actions';
 import {connect} from "react-redux";
 
-
 class ErrorSnackbar extends Component {
     handleClose = () => {
         this.props.loginFailed(false);
@@ -40,7 +39,7 @@ class ErrorSnackbar extends Component {
 }
 
 const mapStateToProps = state => {
-    return {showError: state.showError, errorMsg: state.errorMsg}
+    return {showError: state.LOGIN_FAILED.showError, errorMsg: state.LOGIN_FAILED.errorMsg}
 };
 
 const mapDispatchToProps = dispatch => {

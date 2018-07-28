@@ -48,9 +48,9 @@ class Login extends Component {
             Auth.setToken(res.data);
             this.props.history.push('/');
         }).catch(err => {
-            this.props.loginFailed(true, err.response.data.message);
+            this.props.triggerError(true, err.response.data.message);
         }).then(() => {
-//            this.props.loadingEvent(false);
+            this.props.loadingEvent(false);
         });
         event.preventDefault();
     }
@@ -95,11 +95,10 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        loginFailed: (bool, msg) => {
+        triggerError: (bool, msg) => {
             dispatch(Actions.loginFailed(bool, msg));
         },
         loadingEvent: (bool) => {
-            console.log('dispatch login');
             dispatch(Actions.loading(bool));
         },
     };

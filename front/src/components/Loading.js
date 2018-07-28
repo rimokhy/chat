@@ -14,7 +14,7 @@ class Loading extends Component {
 }
 
 const mapStateToProps = state => {
-    return {showLoading: state.showLoading}
+    return {showLoading: state.LOADING_TOGGLE.showLoading}
 };
 
 const mapDispatchToProps = dispatch => {

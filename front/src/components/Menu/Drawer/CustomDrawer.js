@@ -6,6 +6,7 @@ import {Inbox, Star, Send, Drafts, Mail, Delete, Report} from "@material-ui/icon
 import {store, subscribeTo} from '../../../services/redux';
 import Actions from "../../../services/redux/actions";
 import {connect} from "react-redux";
+import menuToggle from "../../../services/redux/actions/menuToggle";
 
 class CustomDrawer extends React.Component {
 
@@ -42,13 +43,13 @@ class CustomDrawer extends React.Component {
 }
 
 const mapStateToProps = state => {
-    return {menuOpen: state.menuOpen}
+    return {menuOpen: state.MENU_TOGGLE.menuOpen}
 };
 
 const mapDispatchToProps = dispatch => {
     return {
         menuToggle: (bool) => {
-            dispatch(Actions.menuToggle(bool));
+            dispatch(menuToggle(bool));
         }
     };
 };
