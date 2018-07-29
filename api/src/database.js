@@ -22,7 +22,7 @@ export const dbConnect = () => mongoose.connect(`${MONGO_URI}/${MONGO_DATABASE_N
         } else {
             await dropCollection(User, 'user');
             await dropCollection(Token, 'token');
-            const user = await new User({email: 'email', username: 'admin'}).save();
+            const user = await new User({password: 'password', username: 'admin'}).save();
             const token = await new Token({user: user._id, accessToken: 'password'}).save();
             console.log(`Created token ${token}`)
         }
