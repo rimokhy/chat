@@ -1,4 +1,4 @@
-const menuToggle = (value) => {
+const menuToggle = (state, value) => {
     return {menuOpen: value}
 };
 

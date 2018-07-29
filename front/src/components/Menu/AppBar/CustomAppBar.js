@@ -36,7 +36,7 @@ class CustomAppBar extends React.Component {
         const open = Boolean(anchorEl);
         return (
             <div>
-                <AppBar position="absolute" className="root">
+                <AppBar position="static" className="root">
                     <Toolbar>
 
                         <IconButton color="inherit" aria-label="Menu" onClick={this.handleClick}>

@@ -6,7 +6,6 @@ import {connect} from "react-redux";
 class Loading extends Component {
 
     render() {
-        {console.log(this.props)}
         return <div>
             {this.props.showLoading && <CircularProgress size={68}/>}
         </div>

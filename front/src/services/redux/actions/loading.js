@@ -1,4 +1,4 @@
-const showLoading = (showLoading) => {
+const showLoading = (state, showLoading) => {
     return {showLoading: showLoading}
 };
 

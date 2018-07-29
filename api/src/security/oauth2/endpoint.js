@@ -2,6 +2,7 @@ import request from 'request-promise';
 import githubAuth from './github';
 import googleAuth from './google';
 import { User, Token } from '../../models/index';
+import {httpError} from "./index";
 
 function fromParam(provider) {
   switch (provider) {
@@ -44,14 +45,17 @@ export const makeToken = (tokenResponse, user) => {
 export default (app) => {
   app.get('/auth/:provider', (req, res) => {
     const provider = fromParam(req.params.provider);
-    const uri = provider.config.code.getUri();
+    if (provider) {
+        const uri = provider.config.code.getUri();
 
-    res.redirect(uri);
+        res.send({uri});
+        return;
+    }
+    httpError(res, 'Unknown provider', 400);
   });
 
   app.get('/auth/:provider/callback', async (req, res) => {
     const provider = fromParam(req.params.provider);
-
     provider.config.code.getToken(req.originalUrl)
       .then(async (token) => {
         await request({
@@ -78,7 +82,7 @@ export default (app) => {
                 const insertedUser = await new User(userInfo).save();
                 fetchedToken = await new Token(makeToken(token, insertedUser)).save();
               } else {
-                fetchedToken = await Token.findOne({ user: fetchedUser._id });
+                fetchedToken = await Token.findOne({ user: fetchedUser._id }).populate('user');
               }
                 const { accessToken, user } = fetchedToken;
                 res.send({accessToken, user});
@@ -88,6 +92,8 @@ export default (app) => {
             res.send(err);
           }
         });
-      });
+      }).catch(err => {
+        httpError(res, `${err.toString()}. Try logging again or contact your credentials provider`, 401);
+    });
   });
 };

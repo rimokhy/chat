@@ -1,4 +1,4 @@
-const showError = (showError, errorMsg) => {
+const showError = (state, showError, errorMsg) => {
     return {showError, errorMsg}
 };
 

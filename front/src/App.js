@@ -5,17 +5,11 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import {Route, Switch} from 'react-router-dom';
 import {AuthGuard} from "./services/AuthGuard";
 import Login from "./pages/login/Login";
+import Home from './pages/home/Home'
 import CustomAppBar from './components/Menu/AppBar/CustomAppBar';
 import CustomDrawer from "./components/Menu/Drawer/CustomDrawer";
 import ErrorSnackbar from "./components/ErrorSnackbar";
 import Loading from "./components/Loading";
-
-/* Home component */
-const Home = () => (
-    <div>
-        <h2>Home</h2>
-    </div>
-)
 
 /* Category component */
 const Category = () => (
@@ -87,8 +81,10 @@ class App extends Component {
             <React.Fragment>
                 <CssBaseline/>
 
+
                 <CustomAppBar/>
                 <CustomDrawer/>
+
                 <ErrorSnackbar/>
                 <Loading/>
                 <div>

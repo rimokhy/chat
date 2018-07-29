@@ -1,12 +1,9 @@
 import {Token, User} from '../../models/index';
 
-const parseToken = async (headers) => {
-    const authHeader = headers.authorization || '';
-
+export const parseToken = async (authHeader) => {
     if (authHeader.startsWith('Bearer ')) {
         const token = authHeader.substring(7, authHeader.length);
-
-        return new Promise(resolve => resolve(token));
+        return Promise.resolve(token);
     }
     return Promise.reject(new Error('Failed to decode token'));
 };
@@ -25,14 +22,14 @@ export const getTokenError = (token) => {
     }
 };
 
-export const validateToken = async payload => Token.findOne(payload).then(async (data) => {
+export const validateToken = async payload => Token.findOne(payload).then((data) => {
     getTokenError(data);
     return User.findById(data.user);
 });
 
 export default (app) => {
-    app.use(async (req, res, next) => {
-        await parseToken(req.headers).then((token) => {
+    app.use((req, res, next) => {
+        parseToken(req.headers.authorization || '').then((token) => {
             validateToken({accessToken: token})
                 .then((user) => {
                     req.context = {

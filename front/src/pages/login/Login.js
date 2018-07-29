@@ -1,33 +1,19 @@
 import React, {Component} from 'react';
+import {Button, ButtonBase, Card, CardActions, CardContent, TextField} from "@material-ui/core/index";
+import {connect} from "react-redux";
+import qs from "query-string";
+import Actions from "../../services/redux/actions";
 import google from '../../assets/google.png'
 import github from '../../assets/github.png'
 import {Auth} from "../../services/AuthService";
 import './Login.css'
-import {
-    Button,
-    ButtonBase,
-    Card,
-    CardActions,
-    CardContent,
-    CircularProgress,
-    TextField
-} from "@material-ui/core/index";
-import {connect} from "react-redux";
-import Actions from "../../services/redux/actions";
 
 const externalAuthentication = [{
-    name: 'Github',
-    icon: github,
-    onClick: function () {
-        Auth.login('caca', 'cucu')
-
-    }
+    name: 'github',
+    icon: github
 }, {
-    name: 'Google',
-    icon: google,
-    onClick: function () {
-        console.log('Go to /auth/google');
-    }
+    name: 'google',
+    icon: google
 
 }];
 
@@ -39,6 +25,22 @@ class Login extends Component {
 
         this.login = this.login.bind(this);
         this.handleChange = this.handleChange.bind(this);
+    }
+
+    componentDidMount() {
+        const urlParam = qs.parse(this.props.location.search);
+
+        if (urlParam && urlParam.provider) {
+            console.log(urlParam);
+            Auth.externalAuth(urlParam.provider, this.props.location.search)
+                .then(res => {
+                    Auth.setToken(res.data);
+                    this.props.history.push('/');
+                })
+                .catch(err => {
+                    this.props.triggerError(true, err.response.data.message);
+                })
+        }
     }
 
     login(event) {
@@ -61,6 +63,16 @@ class Login extends Component {
         });
     };
 
+    onExternalAuthClick = name => {
+        return () => {
+            Auth.externalAuthRedirect(name).then(res => {
+                this.props.navigate(res.data.uri);
+            }).catch(err => {
+                this.props.triggerError(true, err.response.data.message);
+            });
+        }
+    };
+
     render() {
         return (
             <div>
@@ -78,8 +90,8 @@ class Login extends Component {
                     </CardContent>
                     <CardActions>
                         {externalAuthentication.map(auth => (
-                            <ButtonBase focusRipple key={auth.name} onClick={auth.onClick}>
-                                <img src={auth.icon}/>
+                            <ButtonBase focusRipple key={auth.name} onClick={this.onExternalAuthClick(auth.name)}>
+                                <img src={auth.icon} alt={auth.name}/>
                             </ButtonBase>
                         ))}
                     </CardActions>
@@ -97,6 +109,9 @@ const mapDispatchToProps = dispatch => {
     return {
         triggerError: (bool, msg) => {
             dispatch(Actions.loginFailed(bool, msg));
+        },
+        navigate: (uri, obj) => {
+            dispatch(Actions.navigation(uri, obj));
         },
         loadingEvent: (bool) => {
             dispatch(Actions.loading(bool));

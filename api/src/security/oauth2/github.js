@@ -6,7 +6,6 @@ export default {
     clientSecret: '79af286fede3cd5fd654cb57c6de56bae3de2dc7',
     accessTokenUri: 'https://github.com/login/oauth/access_token',
     authorizationUri: 'https://github.com/login/oauth/authorize',
-    redirectUri: 'http://localhost:8080/auth/github/callback',
     scopes: ['user'],
   }),
   profile: {

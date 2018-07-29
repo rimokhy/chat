@@ -1,8 +1,12 @@
 import request from 'axios';
+import {ApolloClient} from 'apollo-client'
+import {createHttpLink} from 'apollo-link-http'
+import {InMemoryCache} from 'apollo-cache-inmemory'
+import gql from 'graphql-tag'
 
 class AuthService {
+
     constructor() {
-        this.logout();
         try {
             this.token = JSON.parse(localStorage.getItem('token'));
         } catch (e) {
@@ -36,6 +40,20 @@ class AuthService {
     setToken(token) {
         this.token = token;
         localStorage.setItem('token', JSON.stringify(this.token));
+    }
+
+    externalAuthRedirect(name) {
+        return request({
+            method: 'get',
+            url: `/auth/${name}`,
+        });
+    }
+
+    externalAuth(name, urlParam) {
+        return request({
+            method: 'get',
+            url: `/auth/${name}/callback${urlParam}`,
+        });
     }
 }
 

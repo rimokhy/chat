@@ -1,4 +1,4 @@
-import {GraphQLNonNull, GraphQLString} from 'graphql';
+import {GraphQLNonNull, GraphQLID} from 'graphql';
 import {withFilter} from 'graphql-subscriptions';
 import {pubsub} from '../config';
 import {GQLMessage} from '../GQL/model/index';
@@ -8,12 +8,20 @@ export default {
     type: GQLMessage,
     args: {
         channel: {
-            type: new GraphQLNonNull(GraphQLString),
+            type: new GraphQLNonNull(GraphQLID),
         },
     },
-    resolve: payload => payload,
+    resolve: payload => {
+        console.log('resolve');
+        return payload;
+    },
     subscribe: withFilter(
         () => pubsub.asyncIterator(Events.message),
-        (payload, args) => payload.channel === args.channel,
+        (payload, args) => {
+            console.log(payload.channel);
+            console.log(args.channel);
+
+            return payload.channel === args.channel
+        },
     ),
 };
