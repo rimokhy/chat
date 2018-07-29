@@ -21,9 +21,7 @@ export default {
         },
     },
     resolve: async (obj, args, context) => {
-        const channel = await Channel.findById(args.channel);
-        conso
-        const payload = { content: args.content, channel: new ObjectId(channel._id), createdBy: args.createdBy };
+        const payload = { content: args.content, channel: args.channel, createdBy: args.createdBy };
         let message = await new Message(payload).save();
 
         console.log(message);
