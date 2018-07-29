@@ -7,13 +7,9 @@ import {Auth} from '../../services/AuthService'
 import {Mutation, Query, Subscription} from "react-apollo";
 
 const GQL_ROOM = gql`
-mutation addMessage($content: String!, $channel: ID!) {
-  addMessage(content: $content, channel: $channel) {
-   id
-   content
-   _createdAt
-   _updatedAt
-   operation
+mutation addRoom($title: String!) {
+  addRoom(title: $title) {
+    title
   }
   }`;
 
@@ -35,18 +31,18 @@ subscription messageEvent($channel: ID!) {
 
 
 class Home extends Component {
-    state = {messages: []};
+    componentDidMount() {
+        console.log('Home comp');
 
+        //.then(response => console.log(response.data.allLinks)).catch(err => console.log(err))
+
+    }
 
     test(data) {
         console.log('Event refresh');
         console.log(data);
         return true;
     }
-
-    onFetchedData = data => {
-        console.log(data);
-    };
 
     render() {
         let input;
@@ -86,14 +82,14 @@ class Home extends Component {
                 </Mutation>
                 <Query query={GQL_ROOMS_QUERY} variables={{channel: '12'}}>
                     {({subscribeToMore, ...result}) => {
-                        console.log('Render query start');
+                        console.log('rnder');
                         subscribeToMore({
                             document: GQL_MSG_SUBSCRIPTION,
                             variables: {channel: '12'},
-                            shouldResubscribe: false,
-                            updateQuery: (prev, data) => {
-                                console.log(data);
-                                const subscriptionData = data.subscriptionData;
+/*
+                            shouldResubscribe: true,
+*/
+                            updateQuery: (prev, {subscriptionData}) => {
                                 if (!subscriptionData.data) {
                                     return prev;
                                 }
@@ -102,17 +98,9 @@ class Home extends Component {
                                 });
                             }
                         });
-                        console.log('Render query end');
                         console.log('rnder');
-                        console.log(result.data);
-                        if (result && result.data && result.data.messages) {
-                            return result.data.messages.map(msg => (
-                                <div>
-                                    <span>{msg.content}</span>
-                                </div>
-                            ));
-                        }
-                        return <div/>
+                        console.log(result);
+                        return (<div></div>);
                     }}
                 </Query>
                 {/*

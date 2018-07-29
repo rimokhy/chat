@@ -32,6 +32,7 @@ export default (app) => {
         parseToken(req.headers.authorization || '').then((token) => {
             validateToken({accessToken: token})
                 .then((user) => {
+                    console.log('Clearance granted');
                     req.context = {
                         user,
                     };

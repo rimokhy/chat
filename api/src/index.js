@@ -47,9 +47,14 @@ app.use(
     '/graphql',
     bodyParser.json(),
     graphqlExpress(req => {
+        const user = req.context.user;
+
+        if (user && 'password' in user) {
+            delete user.password;
+        }
         return {
             schema: Schema,
-            context: req.user ? User.findById(req.user.id) : Promise.resolve(null),
+            context: {user},
             formatError: (err) => {
                 try {
                     const {errorCode, message} = JSON.parse(err.message);

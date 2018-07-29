@@ -12,16 +12,11 @@ export default {
         },
     },
     resolve: payload => {
-        console.log('resolve');
+        console.log('Return msg subscription');
         return payload;
     },
     subscribe: withFilter(
         () => pubsub.asyncIterator(Events.message),
-        (payload, args) => {
-            console.log(payload.channel);
-            console.log(args.channel);
-
-            return payload.channel === args.channel
-        },
+        (payload, args) => payload.channel === args.channel
     ),
 };

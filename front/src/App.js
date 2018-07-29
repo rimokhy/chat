@@ -6,8 +6,8 @@ import {Route, Switch} from 'react-router-dom';
 import {AuthGuard} from "./services/AuthGuard";
 import Login from "./pages/login/Login";
 import Home from './pages/home/Home'
-import CustomAppBar from './components/Menu/AppBar/CustomAppBar';
-import CustomDrawer from "./components/Menu/Drawer/CustomDrawer";
+import CustomAppBar from './components/menu/appBar/CustomAppBar';
+import CustomDrawer from "./components/menu/drawer/CustomDrawer";
 import ErrorSnackbar from "./components/ErrorSnackbar";
 import Loading from "./components/Loading";
 

@@ -15,18 +15,13 @@ export default {
         },
         channel: {
             type: new GraphQLNonNull(GraphQLID),
-        },
-        createdBy: {
-            type: new GraphQLNonNull(GraphQLID),
-        },
+        }
     },
     resolve: async (obj, args, context) => {
-        const payload = { content: args.content, channel: args.channel, createdBy: args.createdBy };
+        const payload = { content: args.content, channel: args.channel, createdBy: context.user._id };
         let message = await new Message(payload).save();
 
-        console.log(message);
-        message = await Message.findById(message._id).populate('createdBy').populate('channel');
-        console.log(message);
+        message = await Message.findById(message._id).populate('createdBy');
         message.operation = Operation.Create;
         pubsub.publish(Events.message, message);
         return message;
