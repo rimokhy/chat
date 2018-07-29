@@ -1,19 +1,16 @@
 import React, {Component} from 'react';
 import {connect} from "react-redux";
 import Actions from "../../services/redux/actions";
-import './RoomList.css'
-import Room from "./Room";
+import './Room.css'
 
 class RoomList extends Component {
     componentDidMount() {
         console.log('Mounting room :)');
-        this.props.subscribeToNewComments();
     }
 
     render() {
-        console.log(this.props);
         return <div>
-            {this.props.data && this.props.data.messages && this.props.data.messages.map(msg => (<Room msg={msg}/>))}
+            <span>{this.props.msg.content}</span>
         </div>
     }
 }

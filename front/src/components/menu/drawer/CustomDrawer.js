@@ -7,6 +7,7 @@ import {store, subscribeTo} from '../../../services/redux';
 import Actions from "../../../services/redux/actions";
 import {connect} from "react-redux";
 import menuToggle from "../../../services/redux/actions/menuToggle";
+import RoomList from "../../room/RoomWatcher";
 
 class CustomDrawer extends React.Component {
 
@@ -22,7 +23,7 @@ class CustomDrawer extends React.Component {
 
         const sideList = (
             <div>
-                <span>Caca</span>
+                <RoomList/>
             </div>
         );
         return (
