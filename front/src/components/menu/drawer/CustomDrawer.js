@@ -7,7 +7,10 @@ import {store, subscribeTo} from '../../../services/redux';
 import Actions from "../../../services/redux/actions";
 import {connect} from "react-redux";
 import menuToggle from "../../../services/redux/actions/menuToggle";
-import RoomList from "../../room/RoomWatcher";
+import GQLWatcher from "../../GQLWatcher";
+import RoomList from "../../room/RoomList";
+import GQL from "../../room/GQL";
+import RoomPicker from "../../room/RoomPicker";
 
 class CustomDrawer extends React.Component {
 
@@ -23,7 +26,8 @@ class CustomDrawer extends React.Component {
 
         const sideList = (
             <div>
-                <RoomList/>
+                <GQLWatcher onFetch={{component: RoomList, query: GQL.messages}}>
+                </GQLWatcher>
             </div>
         );
         return (
