@@ -12,6 +12,6 @@ export default {
         type: new GraphQLNonNull(GraphQLDateTime),
     },
     _updatedAt: {
-        type: new GraphQLNonNull(GraphQLDateTime),
+        type: GraphQLDateTime,
     }
 }

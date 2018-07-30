@@ -1,94 +1,18 @@
 import React from 'react';
 import './CustomAppBar.css'
-import {AppBar, Button, IconButton, Menu, MenuItem, Toolbar} from "@material-ui/core/index";
-import {AccountCircle} from "@material-ui/icons/index";
+import {AppBar, Button, IconButton, Toolbar} from "@material-ui/core/index";
 import {Auth} from '../../../services/AuthService';
 import Typography from '@material-ui/core/Typography';
 import MenuIcon from '@material-ui/icons/Menu';
 import Actions from '../../../services/redux/actions';
 import {connect} from "react-redux";
-
-class CustomAppBar extends React.Component {
-    state = {
-        anchorEl: null
-    };
-
-    constructor(props, context) {
-        super(props, context);
-
-    }
-
-    handleMenu = event => {
-        this.setState({anchorEl: event.currentTarget});
-    };
-
-    handleClose = () => {
-        this.setState({anchorEl: null});
-    };
-
-    handleClick = () => {
-        this.props.menuToggle(true);
-        this.setState({anchorEl: null});
-    };
-
-    render() {
-        const {anchorEl} = this.state;
-        const open = Boolean(anchorEl);
-        return (
-            <div>
-                <AppBar position="static" className="root">
-                    <Toolbar>
-
-                        <IconButton color="inherit" aria-label="Menu" onClick={this.handleClick}>
-                            <MenuIcon/>
-                        </IconButton>
-
-                        <Typography variant="title" color="inherit" className="flex">
-                            Photos
-                        </Typography>
-                        {Auth.isAuth() && (
-                            <div>
-                                <IconButton
-                                    aria-owns={open ? 'menu-appbar' : null}
-                                    aria-haspopup="true"
-                                    onClick={this.handleMenu}
-                                    color="inherit"
-                                >
-                                    <AccountCircle/>
-                                </IconButton>
-                                <Menu
-                                    id="menu-appbar"
-                                    anchorEl={anchorEl}
-                                    anchorOrigin={{
-                                        vertical: 'top',
-                                        horizontal: 'right',
-                                    }}
-                                    transformOrigin={{
-                                        vertical: 'top',
-                                        horizontal: 'right',
-                                    }}
-                                    open={open}
-                                    onClose={this.handleClose}
-                                >
-                                    <MenuItem onClick={this.handleClose}>Profile</MenuItem>
-                                    <MenuItem onClick={this.handleClose}>My account</MenuItem>
-                                </Menu>
-                            </div>
-                        )}
-                        {!(Auth.isAuth()) && <div>
-                            <Button variant="contained" color="secondary">
-                                Sign-In
-                            </Button>
-                            <Button variant="contained" color="secondary">
-                                Login
-                            </Button>
-                        </div>}
-                    </Toolbar>
-                </AppBar>
-            </div>
-        );
-    }
-}
+import {withStyles} from '@material-ui/core/styles';
+import {menuStyles} from "../index";
+import Drawer from "@material-ui/core/es/Drawer/Drawer";
+import Room from "../../../pages/room/Room";
+import Channel from "../../../pages/channel/Channel";
+import {AuthGuard} from "../../../services/AuthGuard";
+import {withRouter} from 'react-router'
 
 const mapStateToProps = state => {
     return {}
@@ -102,4 +26,55 @@ const mapDispatchToProps = dispatch => {
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(CustomAppBar);
+
+class ClippedDrawer extends React.Component {
+    state = {};
+
+    handleClick = () => {
+        this.props.menuToggle(true);
+    };
+
+    render() {
+        const {classes} = this.props;
+        return (
+            <div className={classes.root}>
+
+                <AppBar position="absolute" className={classes.appBar}>
+                    <Toolbar>
+                        <IconButton color="inherit" aria-label="Menu" onClick={this.handleClick}>
+                            <MenuIcon/>
+                        </IconButton>
+                        <Typography variant="title" color="inherit" noWrap>
+                            Clipped drawer
+                        </Typography>
+                        {!(Auth.isAuth()) && <div>
+                            <Button variant="contained" color="secondary">
+                                Sign-In
+                            </Button>
+                            <Button variant="contained" color="secondary">
+                                Login
+                            </Button>
+                        </div>}
+                    </Toolbar>
+                </AppBar>
+                <Drawer
+                    variant="permanent"
+                    classes={{
+                        paper: classes.drawerPaper,
+                    }}
+                >
+                    <div className={classes.toolbar}/>
+                    <AuthGuard path="/room/:roomId?" component={Room}/>
+                </Drawer>
+                <main className={classes.content}>
+                    <div className={classes.toolbar}/>
+                    <AuthGuard path="/room/:roomId/channel/:channelId?" component={Channel}/>
+
+                </main>
+            </div>
+        );
+    }
+}
+
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(withStyles(menuStyles)(ClippedDrawer)));

@@ -5,39 +5,19 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import {Route, Switch} from 'react-router-dom';
 import {AuthGuard} from "./services/AuthGuard";
 import Login from "./pages/login/Login";
-import Home from './pages/home/Home'
+import Profile from './pages/profile/Profile'
 import CustomAppBar from './components/menu/appBar/CustomAppBar';
 import CustomDrawer from "./components/menu/drawer/CustomDrawer";
 import ErrorSnackbar from "./components/ErrorSnackbar";
 import Loading from "./components/Loading";
-
-/* Category component */
-const Category = () => (
-    <div>
-        <h2>Category</h2>
-    </div>
-)
-
-/* Products component */
-const Products = () => (
-    <div>
-        <h2>Log in ? wtf...</h2>
-    </div>
-)
-
-/* Products component */
-const Zz = () => (
-    <div>
-        <h2>Zz</h2>
-    </div>
-)
-
-/* Products component */
-const NotFound = () => (
-    <div>
-        <h2>NotFound</h2>
-    </div>
-)
+import {Divider} from "@material-ui/core/index";
+import GQLWatcher from "./components/GQLWatcher";
+import RoomList from "./components/room/RoomList";
+import UserInfo from "./components/UserInfo";
+import List from "@material-ui/core/es/List/List";
+import {menuStyles} from './components/menu'
+import {withStyles} from '@material-ui/core/styles';
+import {withRouter} from 'react-router'
 
 class App extends Component {
     constructor(props, context) {
@@ -61,39 +41,29 @@ class App extends Component {
         e.stopPropagation();
     }
 
-    /*
-    <h2>
-    <Link to='/'>Home</Link>
-    </h2>
-    <h2>
-    <Link to='/category'>Category</Link>
-    </h2>
-    <h2>
-    <Link to='/products'>Products</Link>
-    </h2>
-    <h2>
-    <Link to='/login'>Login</Link>
-    </h2>
-    */
-
     render() {
+        const {classes} = this.props;
+
         return (
             <React.Fragment>
                 <CssBaseline/>
-
-
-                <CustomAppBar/>
-                <CustomDrawer/>
+                <CustomAppBar>
+                </CustomAppBar>
+                <CustomDrawer>
+                    <List>
+                        <UserInfo/>
+                        <Divider/>
+                        <GQLWatcher onFetch={RoomList}>
+                        </GQLWatcher>
+                    </List>
+                </CustomDrawer>
 
                 <ErrorSnackbar/>
                 <Loading/>
                 <div>
                     <Switch>
                         <Route exact path="/login" component={Login}/>
-                        <AuthGuard exact path="/" component={Home}/>
-                        <AuthGuard exact path="/category" component={Category}/>
-                        <AuthGuard exact path="/products" component={Zz}/>
-                        <AuthGuard component={NotFound}/>
+                        <AuthGuard exact path="/" component={Profile}/>
                     </Switch>
                 </div>
             </React.Fragment>
@@ -102,4 +72,4 @@ class App extends Component {
     }
 }
 
-export default App;
+export default withRouter(withStyles(menuStyles)(App));

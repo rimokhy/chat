@@ -30,7 +30,7 @@ class AuthService {
     }
 
     logout() {
-        this.token = undefined;
+        this.setToken(undefined);
         return request({
             method: 'post',
             url: '/logout',

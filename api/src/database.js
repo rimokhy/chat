@@ -20,8 +20,6 @@ export const dbConnect = () => mongoose.connect(`${MONGO_URI}/${MONGO_DATABASE_N
             const token = await new Token({user: user._id, accessToken: 'lol'}).save()
             console.log(`Created token ${token}`)
         } else {
-            await dropCollection(User, 'user');
-            await dropCollection(Token, 'token');
             const user = await new User({password: 'password', username: 'admin'}).save();
             const token = await new Token({user: user._id, accessToken: 'password'}).save();
             console.log(`Created token ${token}`)

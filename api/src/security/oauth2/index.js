@@ -22,9 +22,14 @@ export const getTokenError = (token) => {
     }
 };
 
-export const validateToken = async payload => Token.findOne(payload).then((data) => {
+export const validateToken = async payload => Token.findOne(payload).then(async (data) => {
     getTokenError(data);
-    return User.findById(data.user);
+    const user = await User.findById(data.user);
+
+    if ('password' in user) {
+        delete user['password'];
+    }
+    return Promise.resolve(user);
 });
 
 export default (app) => {
@@ -32,7 +37,6 @@ export default (app) => {
         parseToken(req.headers.authorization || '').then((token) => {
             validateToken({accessToken: token})
                 .then((user) => {
-                    console.log('Clearance granted');
                     req.context = {
                         user,
                     };

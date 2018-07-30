@@ -7,28 +7,28 @@ import {ApolloClient} from "apollo-client";
 import {InMemoryCache} from "apollo-cache-inmemory";
 
 
-const httpLink = createHttpLink({ uri: '/graphql' });
+const httpLink = createHttpLink({uri: '/graphql'});
 
 const middlewareLink = setContext(() => ({
-
     headers: {
-        authorization: 'Bearer password',
+        Authorization: 'Bearer password',
     }
 }));
 
-// Create a WebSocket link:
 const wsLink = new WebSocketLink({
-    uri: `ws://localhost:8080/subscriptions`
+    uri: `ws://localhost:8080/subscriptions`,
+    options: {
+        connectionParams: {
+            Authorization: 'Bearer password',
+        }
+    }
 });
 
 const cache = new InMemoryCache();
 
-// using the ability to split links, you can send data to each link
-// depending on what kind of operation is being sent
 const link = split(
-    // split based on operation type
-    ({ query }) => {
-        const { kind, operation } = getMainDefinition(query);
+    ({query}) => {
+        const {kind, operation} = getMainDefinition(query);
         return kind === 'OperationDefinition' && operation === 'subscription';
     },
     wsLink,

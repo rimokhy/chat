@@ -31,7 +31,7 @@ class Login extends Component {
         const urlParam = qs.parse(this.props.location.search);
 
         if (urlParam && urlParam.provider) {
-            console.log(urlParam);
+            this.props.loadingEvent(true);
             Auth.externalAuth(urlParam.provider, this.props.location.search)
                 .then(res => {
                     Auth.setToken(res.data);
@@ -39,7 +39,9 @@ class Login extends Component {
                 })
                 .catch(err => {
                     this.props.triggerError(true, err.response.data.message);
-                })
+                }).then(() => {
+                this.props.loadingEvent(false);
+            });
         }
     }
 
@@ -65,10 +67,13 @@ class Login extends Component {
 
     onExternalAuthClick = name => {
         return () => {
+            this.props.loadingEvent(true);
             Auth.externalAuthRedirect(name).then(res => {
                 this.props.navigate(res.data.uri);
             }).catch(err => {
                 this.props.triggerError(true, err.response.data.message);
+            }).then(() => {
+                this.props.loadingEvent(true);
             });
         }
     };

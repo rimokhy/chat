@@ -17,7 +17,10 @@ const parseHeader = async (headers) => {
 
         // TODO: handleEncryption password
         if (user && user.password === password) {
-            const token = await Token.findOne({user: user._id}).populate('user', 'email username avatar _id');
+            let token = await Token.findOne({user: user._id}).populate('user', 'email username avatar _id');
+            if (token === null) {
+                token = createToken(user);
+            }
             getTokenError(token);
             return token;
         }

@@ -10,7 +10,7 @@ import OAuth2Endpoint from './security/oauth2/endpoint';
 import OAuth2Validation, {parseToken, validateToken} from './security/oauth2';
 import AppSecurity from './security'
 import Schema from './schema';
-import {BASE_URI, WS_BASE_URI, PORT} from './config';
+import {BASE_URI, PORT, WS_BASE_URI} from './config';
 import {dbConnect} from "./database";
 
 dbConnect();
@@ -67,49 +67,20 @@ app.use(
     }));
 
 
-import {User} from './models'
-
 server.listen(PORT, () => {
     new SubscriptionServer(
         {
             execute,
             subscribe,
             schema: Schema,
-/*            onConnect(connectionParams, webSocket) {
-                const userPromise = new Promise((res, rej) => {
-                    if (connectionParams.authToken) {
-                        console.log(connectionParams.authToken);
-                        return parseToken(connectionParams.authToken)
-                            .then(data => validateToken({accessToken: data}))
-                            .then((user) => {
-                                console.log(user);
-                                return {
-                                    currentUser: user,
-                                };
-                            });
-                    } else {
-                        rej('No Token');
-                    }
-                });
-
-                return userPromise.then((user) => {
-                    if (user) {
-                        return {user: Promise.resolve(user)};
-                    }
-
-                    return Promise.reject('No User');
-                });
+            onConnect: async (connectionParams, webSocket) => {
+                if (!connectionParams.Authorization) {
+                    return Promise.reject(new Error('WS: No authentication detected'))
+                }
+                const token = await parseToken(connectionParams.Authorization);
+                const user = await validateToken({accessToken: token});
+                return {user};
             },
-            onOperation(parsedMessage, baseParams) {
-                // we need to implement this!!!
-                const {subscriptionName, args} = getSubscriptionDetails({
-                    baseParams,
-                    schema: Schema,
-                });
-
-                // we need to implement this too!!!
-                return subscriptionLogic[subscriptionName](baseParams, args, baseParams.context);
-            },*/
         },
         {
             server,

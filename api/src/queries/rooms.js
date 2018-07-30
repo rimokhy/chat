@@ -1,17 +1,17 @@
-import {GraphQLID} from 'graphql';
 import {GraphQLList} from 'graphql';
 
-import GraphQLMessage from '../GQL/model/message';
-import {Message} from '../models'
+import GraphQLRoom from '../GQL/model/room';
+import {Room} from '../models'
 
 export default {
-    type: new GraphQLList(GraphQLMessage),
+    type: new GraphQLList(GraphQLRoom),
     args: {
-        channel: {
-            type: GraphQLID,
-        },
     },
     resolve: async (obj, args, context) => {
-        return await Message.find({channel: args.channel}).sort([['_createdAt', -1]]).populate('createdBy');
+        return await Room.find({
+            users: {
+                "$in": [context.user._id]
+            }
+        }).sort([['_createdAt', -1]]);
     },
 };

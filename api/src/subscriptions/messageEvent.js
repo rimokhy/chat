@@ -17,6 +17,9 @@ export default {
     },
     subscribe: withFilter(
         () => pubsub.asyncIterator(Events.message),
-        (payload, args) => payload.channel === args.channel
+        (payload, args, context) => {
+            console.log((String(payload.channel) === String(args.channel)))
+            return (String(payload.channel) === String(args.channel));
+        }
     ),
 };

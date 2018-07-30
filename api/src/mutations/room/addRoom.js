@@ -4,9 +4,6 @@ import {GQLRoom} from '../../GQL/model/index';
 import {Room} from '../../models';
 import Events from '../../events';
 import {Operation} from "./index";
-import mongoose from 'mongoose'
-
-const ObjectId = mongoose.Types.ObjectId;
 
 export default {
     type: GQLRoom,

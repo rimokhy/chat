@@ -12,6 +12,6 @@ export default {
         },
     },
     resolve: async (obj, args, context) => {
-        return await Message.find({channel: args.channel}).sort([['_createdAt', -1]]).populate('createdBy');
+        return await Message.find({channel: args.channel}).sort([['_createdAt', 1]]).populate('createdBy');
     },
 };

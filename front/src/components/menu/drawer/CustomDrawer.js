@@ -1,16 +1,10 @@
 import React from 'react';
 import './CustomDrawer.css'
-import {ListItem, ListItemIcon, ListItemText, List, Drawer, Divider} from "@material-ui/core/index";
-import {Auth} from '../../../services/AuthService'
-import {Inbox, Star, Send, Drafts, Mail, Delete, Report} from "@material-ui/icons/index";
-import {store, subscribeTo} from '../../../services/redux';
-import Actions from "../../../services/redux/actions";
+import {Drawer} from "@material-ui/core/index";
 import {connect} from "react-redux";
 import menuToggle from "../../../services/redux/actions/menuToggle";
-import GQLWatcher from "../../GQLWatcher";
-import RoomList from "../../room/RoomList";
-import GQL from "../../room/GQL";
-import RoomPicker from "../../room/RoomPicker";
+import {withStyles} from '@material-ui/core/styles';
+import {menuStyles} from "../index";
 
 class CustomDrawer extends React.Component {
 
@@ -23,23 +17,21 @@ class CustomDrawer extends React.Component {
     };
 
     render() {
-
-        const sideList = (
-            <div>
-                <GQLWatcher onFetch={{component: RoomList, query: GQL.messages}}>
-                </GQLWatcher>
-            </div>
-        );
+        const {classes, variant} = this.props;
         return (
             <div>
-                <Drawer open={this.props.menuOpen} onClose={this.toggleDrawer}>
+                <Drawer classes={{paper: classes.drawerPaper}} variant={variant} open={this.props.menuOpen}
+                        onClose={this.toggleDrawer}>
                     <div
                         tabIndex={0}
                         role="button"
                         onClick={this.toggleDrawer}
                         onKeyDown={this.toggleDrawer}
                     >
-                        {sideList}
+                        <div>
+                            <div className={classes.toolbar}/>
+                            {this.props.children}
+                        </div>
                     </div>
                 </Drawer>
             </div>
@@ -59,4 +51,4 @@ const mapDispatchToProps = dispatch => {
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(CustomDrawer);
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(menuStyles)(CustomDrawer));

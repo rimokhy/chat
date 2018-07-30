@@ -25,7 +25,8 @@
     "react-router-dom": "^4.3.1",
     "react-scripts": "1.1.4",
     "redux": "^4.0.0",
-    "subscriptions-transport-ws": "^0.9.14"
+    "subscriptions-transport-ws": "^0.9.14",
+    "classnames": "latest"
   },
   "devDependencies": {
     "serve": "^9.4.0"

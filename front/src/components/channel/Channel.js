@@ -1,8 +1,7 @@
 import React, {Component} from 'react';
-import './css/Room.css'
 import {deepPurple} from '@material-ui/core/colors';
 import {Avatar, ListItem, ListItemText} from "@material-ui/core/index";
-import {MeetingRoom} from '@material-ui/icons'
+import {List as ListIcon} from '@material-ui/icons'
 import {Link} from 'react-router-dom';
 import {withStyles} from '@material-ui/core/styles';
 
@@ -12,20 +11,21 @@ const styles = {
     },
 };
 
-class RoomList extends Component {
+class ChannelList extends Component {
     render() {
-        const {classes} = this.props;
+        const {classes, room} = this.props;
+
         return <div>
-            <Link to={`/room/${this.props.room.id}`}>
+            <Link to={`/${room ? `room/${room}/channel` : 'channel' }/${this.props.channel.id}`}>
                 <ListItem button>
                     <Avatar className={classes.avatar}>
-                        <MeetingRoom/>
+                        <ListIcon/>
                     </Avatar>
-                    <ListItemText primary={this.props.room.title} secondary={this.props.room._createdAt}/>
+                    <ListItemText primary={this.props.channel.title}/>
                 </ListItem>
             </Link>
         </div>
     }
 }
 
-export default withStyles(styles)(RoomList);
+export default withStyles(styles)(ChannelList);

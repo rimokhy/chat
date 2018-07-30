@@ -3,7 +3,7 @@ import {connect} from "react-redux";
 import Actions from "../../services/redux/actions";
 import './css/Room.css'
 
-class RoomPicker extends Component {
+class ChannelPicker extends Component {
 
     render() {
         let input;
@@ -53,4 +53,4 @@ const mapDispatchToProps = dispatch => {
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(RoomPicker);
+export default connect(mapStateToProps, mapDispatchToProps)(ChannelPicker);
