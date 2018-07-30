@@ -13,6 +13,10 @@ import Room from "../../../pages/room/Room";
 import Channel from "../../../pages/channel/Channel";
 import {AuthGuard} from "../../../services/AuthGuard";
 import {withRouter} from 'react-router'
+import Login from "../../../pages/login/Login";
+import Profile from "../../../pages/profile/Profile";
+import {Route, Switch} from 'react-router-dom';
+import Logout from "../../../pages/login/Logout";
 
 const mapStateToProps = state => {
     return {}
@@ -57,19 +61,24 @@ class ClippedDrawer extends React.Component {
                         </div>}
                     </Toolbar>
                 </AppBar>
-                <Drawer
-                    variant="permanent"
-                    classes={{
-                        paper: classes.drawerPaper,
-                    }}
-                >
-                    <div className={classes.toolbar}/>
-                    <AuthGuard path="/room/:roomId?" component={Room}/>
-                </Drawer>
+                {Auth.isAuth() &&
+                    <Drawer
+                        variant="permanent"
+                        classes={{
+                            paper: classes.drawerPaper,
+                        }}>
+                        <div className={classes.toolbar}/>
+                        <AuthGuard path="/room/:roomId?" component={Room}/>
+                    </Drawer>
+                }
                 <main className={classes.content}>
                     <div className={classes.toolbar}/>
                     <AuthGuard path="/room/:roomId/channel/:channelId?" component={Channel}/>
-
+                    <Switch>
+                        <Route exact path="/login" component={Login}/>
+                        <AuthGuard exact path="/logout" component={Logout}/>
+                        <AuthGuard exact path="/" component={Profile}/>
+                    </Switch>
                 </main>
             </div>
         );

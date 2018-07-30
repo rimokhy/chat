@@ -51,7 +51,7 @@ export default (app) => {
     app.post('/auth/register', bodyParser.json(), async (req, res) => {
         await register(req.body)
             .then(token => {
-                const { accessToken, user } = token;
+                const {accessToken, user} = token;
                 res.send({accessToken, user})
             })
             .catch(err => httpError(res, err.toString(), 401));
@@ -59,7 +59,7 @@ export default (app) => {
     app.post('/login', bodyParser.json(), async (req, res) => {
         await parseHeader(req.headers)
             .then(token => {
-                const { accessToken, user } = token;
+                const {accessToken, user} = token;
                 res.send({accessToken, user})
             })
             .catch(err => httpError(res, err.toString(), 401));

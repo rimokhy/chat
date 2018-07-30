@@ -13,8 +13,6 @@ class RoomPicker extends Component {
                     e.preventDefault();
                     this.props.mutation({
                         variables: {
-                            channel: '12',
-                            content: 'Haha'
                         }
                     }).then(data => {
                         console.log(data);

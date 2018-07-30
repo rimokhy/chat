@@ -12,6 +12,7 @@ import AppSecurity from './security'
 import Schema from './schema';
 import {BASE_URI, PORT, WS_BASE_URI} from './config';
 import {dbConnect} from "./database";
+import {Token} from "./models";
 
 dbConnect();
 
@@ -42,6 +43,12 @@ OAuth2Validation(app);
 /**
  * Authorized endpoint below
  */
+
+
+app.post('/logout', async (req, res) => {
+    await Token.findByIdAndRemove(req.context.token._id);
+    res.send({})
+});
 
 app.use(
     '/graphql',
@@ -79,7 +86,7 @@ server.listen(PORT, () => {
                 }
                 const token = await parseToken(connectionParams.Authorization);
                 const user = await validateToken({accessToken: token});
-                return {user};
+                return {user, token};
             },
         },
         {

@@ -78,7 +78,6 @@ export default (app) => {
                                 fetchedToken = await new Token(makeToken(token, fetchedUser)).save();
                             }
                             fetchedToken = await Token.findOne({user: fetchedUser._id}).populate('user', 'email username avatar _id');
-                            console.log(fetchedToken);
                             const {accessToken, user} = fetchedToken;
                             res.send({accessToken, user});
                         });

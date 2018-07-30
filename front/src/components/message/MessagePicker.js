@@ -1,35 +1,55 @@
 import React, {Component} from 'react';
+import TextField from "@material-ui/core/es/TextField/TextField";
+import Button from "@material-ui/core/es/Button/Button";
+import {gql} from "apollo-boost";
 import {connect} from "react-redux";
+import {withStyles} from "@material-ui/core/styles/index";
 import Actions from "../../services/redux/actions";
-import './css/Room.css'
 
 class MessagePicker extends Component {
+    state = {
+        msgContent: null
+    };
+
+    static add() {
+        return gql`
+            mutation addMessage($content: String!, $channel: ID!) {
+              addMessage(content: $content, channel: $channel) {
+                content
+                id
+              }
+            }`;
+    }
+
+    handleChange = name => event => {
+        this.setState({
+            [name]: event.target.value,
+        });
+    };
+
+    onSubmit = (e) => {
+        e.preventDefault();
+        this.props.loadingEvent(true);
+        this.props.mutation({
+            variables: {
+                channel: this.props.channel,
+                content: this.state.msgContent
+            }
+        }).then(data => {
+        }).catch(err => {
+            this.props.triggerError(true, err.response.data.message);
+        }).then(() => {
+            this.props.loadingEvent(true);
+        });
+    };
 
     render() {
-        let input;
         return <div>
-            <form
-                onSubmit={e => {
-                    e.preventDefault();
-                    this.props.mutation({
-                        variables: {
-                            channel: '12',
-                            content: 'Haha'
-                        }
-                    }).then(data => {
-                        console.log(data);
-                    }).catch(err => {
-                        console.log(JSON.stringify(err));
-                    });
-                    input.value = "";
-                }}
-            >
-                <input
-                    ref={node => {
-                        input = node;
-                    }}
-                />
-                <button type="submit">Add Todo</button>
+            <form className="formContainer" onSubmit={this.onSubmit}>
+                <TextField onChange={this.handleChange('msgContent')}  label="Write message" />
+                <Button variant="contained" color="primary" type="submit">
+                    Submit
+                </Button>
             </form>
         </div>
     }
@@ -44,13 +64,10 @@ const mapDispatchToProps = dispatch => {
         triggerError: (bool, msg) => {
             dispatch(Actions.loginFailed(bool, msg));
         },
-        navigate: (uri, obj) => {
-            dispatch(Actions.navigation(uri, obj));
-        },
         loadingEvent: (bool) => {
             dispatch(Actions.loading(bool));
         },
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(MessagePicker);
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles({})(MessagePicker));

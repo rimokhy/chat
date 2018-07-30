@@ -3,8 +3,6 @@ import './CustomDrawer.css'
 import {Drawer} from "@material-ui/core/index";
 import {connect} from "react-redux";
 import menuToggle from "../../../services/redux/actions/menuToggle";
-import {withStyles} from '@material-ui/core/styles';
-import {menuStyles} from "../index";
 
 class CustomDrawer extends React.Component {
 
@@ -20,7 +18,7 @@ class CustomDrawer extends React.Component {
         const {classes, variant} = this.props;
         return (
             <div>
-                <Drawer classes={{paper: classes.drawerPaper}} variant={variant} open={this.props.menuOpen}
+                <Drawer  variant={variant} open={this.props.menuOpen}
                         onClose={this.toggleDrawer}>
                     <div
                         tabIndex={0}
@@ -29,7 +27,6 @@ class CustomDrawer extends React.Component {
                         onKeyDown={this.toggleDrawer}
                     >
                         <div>
-                            <div className={classes.toolbar}/>
                             {this.props.children}
                         </div>
                     </div>
@@ -51,4 +48,4 @@ const mapDispatchToProps = dispatch => {
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(withStyles(menuStyles)(CustomDrawer));
+export default connect(mapStateToProps, mapDispatchToProps)(CustomDrawer);

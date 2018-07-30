@@ -10,22 +10,19 @@ class RoomWatcher extends Component {
         return onFetch;
     }
 
-    resolveVars(comp) {
-        return {};
-    }
-
     render() {
-        const {onAdd, onFetch, fetchVars} = this.props;
+        const {onAdd, onFetch, fetchVars, addVars} = this.props;
         const AddComponent = onAdd;
         const QueryComponent = onFetch;
-
+        console.log('GQL WAtcher');
+        console.log(addVars);
         return (
             <div>
                 {this.hasQuery(onAdd) &&
-                <Mutation mutation={onAdd.add()} variables={this.resolveVars(onAdd)}>
+                <Mutation mutation={onAdd.add()} variables={addVars || {}}>
                     {(mutator, response) => (
                         <div>
-                            <AddComponent mutation={mutator}/>
+                            <AddComponent {...addVars} mutation={mutator}/>
                         </div>
                     )}
                 </Mutation>

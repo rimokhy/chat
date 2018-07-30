@@ -42,9 +42,8 @@ class UserInfo extends Component {
     };
 
     render() {
-        const user = Auth.token.user;
+        const user = Auth.token ? Auth.token.user : {};
         const {classes} = this.props;
-        //TODO: si j'ai le temps, faire un choix d'avatar dans le profile
         return <div>
             <Link to="/">
                 <ListItem button>
@@ -53,16 +52,8 @@ class UserInfo extends Component {
                     <ListItemText primary={user.username} secondary={user.email}/>
                 </ListItem>
             </Link>
-            <Link to="/friends">
-                <ListItem button>
-                    <Avatar className={classes.friends}>
-                        <People/>
-                    </Avatar>
-                    <ListItemText primary="Friends"/>
-                </ListItem>
-            </Link>
             <Divider/>
-            <Link to="/login">
+            <Link to="/logout">
                 <ListItem button>
                     <Avatar className={classes.friends}>
                         <Logout/>

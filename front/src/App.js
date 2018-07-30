@@ -2,10 +2,6 @@ import React, {Component} from 'react';
 import './App.css';
 
 import CssBaseline from '@material-ui/core/CssBaseline';
-import {Route, Switch} from 'react-router-dom';
-import {AuthGuard} from "./services/AuthGuard";
-import Login from "./pages/login/Login";
-import Profile from './pages/profile/Profile'
 import CustomAppBar from './components/menu/appBar/CustomAppBar';
 import CustomDrawer from "./components/menu/drawer/CustomDrawer";
 import ErrorSnackbar from "./components/ErrorSnackbar";
@@ -60,12 +56,6 @@ class App extends Component {
 
                 <ErrorSnackbar/>
                 <Loading/>
-                <div>
-                    <Switch>
-                        <Route exact path="/login" component={Login}/>
-                        <AuthGuard exact path="/" component={Profile}/>
-                    </Switch>
-                </div>
             </React.Fragment>
 
         );

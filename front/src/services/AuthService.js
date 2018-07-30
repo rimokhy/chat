@@ -30,10 +30,12 @@ class AuthService {
     }
 
     logout() {
-        this.setToken(undefined);
         return request({
             method: 'post',
             url: '/logout',
+            headers: {
+                Authorization: `Bearer ${Auth.token ? Auth.token.accessToken : ''}`,
+            }
         });
     }
 

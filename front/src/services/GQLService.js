@@ -5,21 +5,22 @@ import {split} from 'apollo-link';
 import {getMainDefinition} from 'apollo-utilities';
 import {ApolloClient} from "apollo-client";
 import {InMemoryCache} from "apollo-cache-inmemory";
-
+import {Auth} from "./AuthService";
 
 const httpLink = createHttpLink({uri: '/graphql'});
 
 const middlewareLink = setContext(() => ({
     headers: {
-        Authorization: 'Bearer password',
+        Authorization: `Bearer ${Auth.token ? Auth.token.accessToken : ''}`,
     }
 }));
 
 const wsLink = new WebSocketLink({
     uri: `ws://localhost:8080/subscriptions`,
     options: {
+        reconnect: true,
         connectionParams: {
-            Authorization: 'Bearer password',
+            Authorization: `Bearer ${Auth.token ? Auth.token.accessToken : ''}`,
         }
     }
 });

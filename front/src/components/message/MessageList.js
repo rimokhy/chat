@@ -26,6 +26,9 @@ class MessageList extends Component {
                   messages(channel: $channel) {
                    id
                    content
+                   _createdAt
+                   _updatedAt
+                   createdBy { username id avatar }
                  }
             }`;
     }
@@ -34,8 +37,11 @@ class MessageList extends Component {
         return gql`
                 subscription messageEvent($channel: ID!) {
                   messageEvent(channel: $channel) {
-                    id
-                    content
+                  id
+                  content
+                   _createdAt
+                   _updatedAt
+                   createdBy { username id avatar }
                   }
                 }`;
     }

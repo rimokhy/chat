@@ -8,18 +8,6 @@ class ChannelList extends Component {
         this.subscribe();
     }
 
-    /*
-
-        static add() {
-            return gql`
-            mutation addChannel($title: String!) {
-              addChannel(title: $title) {
-               id
-             }
-              }`;
-        }
-    */
-
     static query() {
         return gql`
                 query channels($room: ID!) {
@@ -45,7 +33,6 @@ class ChannelList extends Component {
             document: ChannelList.subscription(),
             variables: this.props.fetchVars,
             updateQuery: (prev, {subscriptionData}) => {
-                console.log('Channel event rcv');
                 if (!subscriptionData.data) {
                     return prev;
                 }
@@ -56,8 +43,6 @@ class ChannelList extends Component {
         });
 
     render() {
-        console.log('Channel list rendered');
-        console.log(this.props.data);
         return <div>
             <List>
                 {this.props.data && this.props.data.channels && this.props.data.channels.map(channel => (

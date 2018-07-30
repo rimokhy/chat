@@ -1,56 +1,17 @@
 import React, {Component} from 'react';
-import {connect} from "react-redux";
-import Actions from "../../services/redux/actions";
-import './css/Room.css'
+import TextField from "@material-ui/core/es/TextField/TextField";
+import Button from "@material-ui/core/es/Button/Button";
 
-class ChannelPicker extends Component {
-
+export class ChannelPicker extends Component {
+    
     render() {
-        let input;
         return <div>
-            <form
-                onSubmit={e => {
-                    e.preventDefault();
-                    this.props.mutation({
-                        variables: {
-                            channel: '12',
-                            content: 'Haha'
-                        }
-                    }).then(data => {
-                        console.log(data);
-                    }).catch(err => {
-                        console.log(JSON.stringify(err));
-                    });
-                    input.value = "";
-                }}
-            >
-                <input
-                    ref={node => {
-                        input = node;
-                    }}
-                />
-                <button type="submit">Add Todo</button>
+            <form className="formContainer">
+                <TextField label="Write message"/>
+                <Button variant="contained" color="primary" type="submit">
+                    Submit
+                </Button>
             </form>
         </div>
     }
 }
-
-const mapStateToProps = state => {
-    return {}
-};
-
-const mapDispatchToProps = dispatch => {
-    return {
-        triggerError: (bool, msg) => {
-            dispatch(Actions.loginFailed(bool, msg));
-        },
-        navigate: (uri, obj) => {
-            dispatch(Actions.navigation(uri, obj));
-        },
-        loadingEvent: (bool) => {
-            dispatch(Actions.loading(bool));
-        },
-    };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(ChannelPicker);

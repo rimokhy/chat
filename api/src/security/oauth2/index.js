@@ -38,7 +38,7 @@ export default (app) => {
             validateToken({accessToken: token})
                 .then((user) => {
                     req.context = {
-                        user,
+                        user, token
                     };
                     next();
                 })

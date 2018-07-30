@@ -6,8 +6,9 @@ import Actions from "../../services/redux/actions";
 import google from '../../assets/google.png'
 import github from '../../assets/github.png'
 import {Auth} from "../../services/AuthService";
+import {withRouter} from 'react-router'
 import './Login.css'
-
+import {withStyles} from '@material-ui/core/styles';
 const externalAuthentication = [{
     name: 'github',
     icon: github
@@ -124,4 +125,4 @@ const mapDispatchToProps = dispatch => {
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Login);
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(withStyles({})(Login)));
