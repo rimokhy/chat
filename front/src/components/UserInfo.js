@@ -53,13 +53,6 @@ class UserInfo extends Component {
                 </ListItem>
             </Link>
             <Divider/>
-            <Link to="/room">
-                <ListItem button>
-                    <Avatar className={classes.friends}>
-                        <Add/>
-                    </Avatar>
-                </ListItem>
-            </Link>
             <Divider/>
             <Link to="/logout">
                 <ListItem button>

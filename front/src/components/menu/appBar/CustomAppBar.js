@@ -17,7 +17,8 @@ import Login from "../../../pages/login/Login";
 import Profile from "../../../pages/profile/Profile";
 import {Route, Switch} from 'react-router-dom';
 import Logout from "../../../pages/login/Logout";
-import RoomAction from "../../../pages/roomAction/RoomAction";
+import RoomAction from "../../../pages/room/RoomAction";
+import ChannelAction from "../../../pages/channel/ChannelAction";
 
 const mapStateToProps = state => {
     return {}
@@ -81,7 +82,8 @@ class ClippedDrawer extends React.Component {
                     <Switch>
                         <Route exact path="/login" component={Login}/>
                         <AuthGuard exact path="/logout" component={Logout}/>
-                        <AuthGuard exact path="/room/:roomId?/:roomAction?" component={RoomAction}/>
+                        <AuthGuard exact path="/room/:roomId?" component={RoomAction}/>
+                        <AuthGuard path="/room/:roomId/channel/:channelId?" component={ChannelAction}/>
                     </Switch>
                 </main>
             </div>

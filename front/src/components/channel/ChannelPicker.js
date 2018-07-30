@@ -8,6 +8,8 @@ import Actions from "../../services/redux/actions";
 import Checkbox from "@material-ui/core/es/Checkbox/Checkbox";
 import FormGroup from "@material-ui/core/es/FormGroup/FormGroup";
 import FormControlLabel from "@material-ui/core/es/FormControlLabel/FormControlLabel";
+import {Typography} from "@material-ui/core/es/index";
+import {withRouter} from 'react-router'
 
 const styles = theme => ({
     item: {
@@ -17,14 +19,13 @@ const styles = theme => ({
 
 class RoomPicker extends Component {
     state = {
-        roomTitle: null,
-        isPublic: false
+        roomTitle: null
     };
 
     static add() {
         return gql`
-            mutation addRoom($title: String!, $private: Boolean!) {
-              addRoom(title: $title, private: $private) {
+            mutation addChannel($title: String!, $room: ID!) {
+              addChannel(title: $title, room: $room) {
                 title
                 id
                 _createdAt
@@ -39,20 +40,18 @@ class RoomPicker extends Component {
         });
     };
 
-    handleCheckboxChange = name => event => {
-        this.setState({[name]: event.target.checked});
-    };
-
     onSubmit = (e) => {
         e.preventDefault();
+        console.log('Submit picker channel (match) : ' + this.props.match.roomId);
+        console.log('Submit picker channel (props) : ' + this.props.room);
         this.props.loadingEvent(true);
         this.props.mutation({
             variables: {
                 title: this.state.roomTitle,
-                private: !(this.state.isPublic)
+                room: this.props.match.roomId
             }
         }).then(data => {
-            this.props.triggerError(true, 'Successfully added room');
+            this.props.triggerError(true, 'Successfully added channel');
         }).catch(err => {
             this.props.triggerError(true, err.graphQLErrors[0].message);
         }).then(() => {
@@ -62,21 +61,12 @@ class RoomPicker extends Component {
 
     render() {
         const { classes } = this.props;
-
+        console.log('Render picker channel (match) : ' + this.props.match.roomId);
+        console.log('Render picker channel (props) : ' + this.props.room);
         return <div>
             <form onSubmit={this.onSubmit}>
                 <FormGroup row>
                     <TextField className={classes.item} onChange={this.handleChange('roomTitle')} label="Room title"/>
-                    <FormControlLabel
-                        control={
-                            <Checkbox
-                                checked={this.state.isPublic}
-                                onChange={this.handleCheckboxChange('isPublic')}
-                                value="Room public"
-                            />
-                        }
-                        label="Public"
-                    />
                 </FormGroup>
                 <Button variant="contained" color="primary" type="submit" className={classes.item}>
                     Submit
@@ -101,4 +91,4 @@ const mapDispatchToProps = dispatch => {
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(RoomPicker));
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(withStyles(styles)(RoomPicker)));

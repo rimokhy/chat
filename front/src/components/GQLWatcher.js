@@ -14,6 +14,7 @@ class GQLWatcher extends Component {
         const {onAdd, onFetch, fetchVars, addVars} = this.props;
         const AddComponent = onAdd;
         const QueryComponent = onFetch;
+        console.log(addVars);
         return (
             <div>
                 {this.hasQuery(onAdd) &&

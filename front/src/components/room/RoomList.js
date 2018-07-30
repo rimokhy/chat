@@ -3,6 +3,10 @@ import './css/RoomList.css'
 import Room from "./Room";
 import {List} from "@material-ui/core/index";
 import gql from "graphql-tag";
+import {Link} from "react-router-dom";
+import ListItem from "@material-ui/core/es/ListItem/ListItem";
+import Avatar from "@material-ui/core/es/Avatar/Avatar";
+import Add from "@material-ui/icons/es/Add";
 
 export default class RoomList extends Component {
     componentDidMount() {
@@ -81,6 +85,13 @@ export default class RoomList extends Component {
     render() {
         return <div>
             <List>
+                <Link to="/room">
+                    <ListItem button>
+                        <Avatar>
+                            <Add/>
+                        </Avatar>
+                    </ListItem>
+                </Link>
                 {this.props.data && this.props.data.rooms && this.props.data.rooms.map(room => (<Room room={room}/>))}
             </List>
         </div>
