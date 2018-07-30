@@ -14,7 +14,6 @@ export const menuStyles = theme => ({
     },
     drawerPaper: {
         position: 'relative',
-        width: drawerWidth,
     },
     content: {
         flexGrow: 1,

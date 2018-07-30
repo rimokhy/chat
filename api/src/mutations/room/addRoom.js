@@ -4,6 +4,7 @@ import {GQLRoom} from '../../GQL/model/index';
 import {Room} from '../../models';
 import Events from '../../events';
 import {Operation} from "./index";
+import HttpError from "../../GQL/httpErrors";
 
 export default {
     type: GQLRoom,
@@ -12,19 +13,21 @@ export default {
             type: new GraphQLNonNull(GraphQLString),
         },
         private: {
-            type: GraphQLBoolean
+            type: new GraphQLNonNull(GraphQLBoolean)
         }
     },
     resolve: async (obj, args, context) => {
-        const payload = { title: args.title, users: [context.user._id] };
+        const payload = { title: args.title, users: [context.user._id], private: args.private };
+        try {
+            let room = await new Room(payload).save();
 
-        if (args.private) {
-            payload.private = args.private;
+            room = await Room.findById(room._id).populate('users', 'email username _id');
+            room.operation = Operation.Create;
+            room.isUserIn = true;
+            pubsub.publish(Events.room, room);
+            return room;
+        } catch (e) {
+            throw HttpError.UnprocessableEntity('Room exists');
         }
-        let room = await new Room(payload).save();
-        room = await Room.findById(room._id).populate('users', 'email username _id');
-        room.operation = Operation.Create;
-        pubsub.publish(Events.room, room);
-        return room;
     },
 };

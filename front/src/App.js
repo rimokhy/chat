@@ -11,18 +11,22 @@ import GQLWatcher from "./components/GQLWatcher";
 import RoomList from "./components/room/RoomList";
 import UserInfo from "./components/UserInfo";
 import List from "@material-ui/core/es/List/List";
-import {menuStyles} from './components/menu'
-import {withStyles} from '@material-ui/core/styles';
 import {withRouter} from 'react-router'
+import ListItem from "@material-ui/core/es/ListItem/ListItem";
+import Add from "@material-ui/icons/es/Add";
+import {withStyles} from "@material-ui/core/styles/index";
+import Avatar from "@material-ui/core/es/Avatar/Avatar";
+
+const styles = theme => ({
+    button: {
+        margin: theme.spacing.unit * 2,
+    },
+});
 
 class App extends Component {
     constructor(props, context) {
         super(props, context);
-        this.state = {
-            visible: false
-        };
         this.toggleMenu = this.toggleMenu.bind(this);
-        this.onMenuButton = this.onMenuButton.bind(this);
     }
 
     toggleMenu() {
@@ -31,10 +35,9 @@ class App extends Component {
         })
     }
 
-    onMenuButton(e) {
-        this.toggleMenu();
-
-        e.stopPropagation();
+    onRoomClick = (e) => {
+        console.log('Clicked');
+        this.props.history.push('/room')
     }
 
     render() {
@@ -62,4 +65,4 @@ class App extends Component {
     }
 }
 
-export default withRouter(withStyles(menuStyles)(App));
+export default withRouter(withStyles(styles)(App));

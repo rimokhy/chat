@@ -6,7 +6,7 @@ export default {
         type: new GraphQLNonNull(GraphQLID),
     },
     operation: {
-        type: new GraphQLNonNull(GraphQLString),
+        type: GraphQLString,
     },
     _createdAt: {
         type: new GraphQLNonNull(GraphQLDateTime),

@@ -1,10 +1,10 @@
 import {GraphQLID, GraphQLNonNull} from 'graphql';
 import {pubsub} from '../../config';
 import {GQLRoom} from '../../GQL/model/index';
-import {Message, Room} from '../../models';
+import {Room} from '../../models';
 import Events from '../../events';
 import {Operation} from "./index";
-import HttpError, {GQLValidationError} from "../../GQL/httpErrors";
+import HttpError from "../../GQL/httpErrors";
 
 export default {
     type: GQLRoom,
@@ -14,25 +14,26 @@ export default {
         }
     },
     resolve: async (obj, args, context) => {
-        try {
-            const room = await Message.findById(args.room);
+        const room = await Room.findOne().and([{
+            users: {
+                "$not": {
+                    "$in": [context.user._id]
+                }
+            }
+        }, {_id: args.room}]);
 
-            if (room.private) {
-                throw HttpError.UnprocessableEntity('Room is private');
-            }
-            if (room.users.indexOf(context.user) === -1) {
-                room.users.push(context.user);
-                room.save();
-                room.users = [context.user];
-            }
-            room.operation = Operation.UserJoin;
-            pubsub.publish(Events.room, room);
-            return room;
-        } catch (err) {
-            if (err instanceof GQLValidationError) {
-                throw err;
-            }
-            throw HttpError.UnprocessableEntity('Room doesn\'t exist');
+        if (room === null) {
+            throw HttpError.UnprocessableEntity('Room doesn\'t exist or user found in room');
         }
-    },
+        if (room.private) {
+            throw HttpError.UnprocessableEntity('Room is private');
+        }
+        room.users.push(context.user._id);
+        room.save();
+        room.isUserIn = true;
+        room.operation = Operation.UserJoin;
+        pubsub.publish(Events.room, room);
+        //TODO: trigger msg on channel general of room
+        return room;
+    }
 };

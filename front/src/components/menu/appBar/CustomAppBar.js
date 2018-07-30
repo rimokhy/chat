@@ -17,6 +17,7 @@ import Login from "../../../pages/login/Login";
 import Profile from "../../../pages/profile/Profile";
 import {Route, Switch} from 'react-router-dom';
 import Logout from "../../../pages/login/Logout";
+import RoomAction from "../../../pages/roomAction/RoomAction";
 
 const mapStateToProps = state => {
     return {}
@@ -62,14 +63,17 @@ class ClippedDrawer extends React.Component {
                     </Toolbar>
                 </AppBar>
                 {Auth.isAuth() &&
-                    <Drawer
-                        variant="permanent"
-                        classes={{
-                            paper: classes.drawerPaper,
-                        }}>
-                        <div className={classes.toolbar}/>
+                <Drawer
+                    variant="permanent"
+                    classes={{
+                        paper: classes.drawerPaper,
+                    }}>
+                    <div className={classes.toolbar}/>
+                    <Switch>
                         <AuthGuard path="/room/:roomId?" component={Room}/>
-                    </Drawer>
+                        <AuthGuard exact path="/" component={Profile}/>
+                    </Switch>
+                </Drawer>
                 }
                 <main className={classes.content}>
                     <div className={classes.toolbar}/>
@@ -77,7 +81,7 @@ class ClippedDrawer extends React.Component {
                     <Switch>
                         <Route exact path="/login" component={Login}/>
                         <AuthGuard exact path="/logout" component={Logout}/>
-                        <AuthGuard exact path="/" component={Profile}/>
+                        <AuthGuard exact path="/room/:roomId?/:roomAction?" component={RoomAction}/>
                     </Switch>
                 </main>
             </div>

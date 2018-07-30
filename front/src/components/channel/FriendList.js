@@ -3,18 +3,17 @@ import {List} from "@material-ui/core/index";
 import Channel from "./Channel";
 import gql from "graphql-tag";
 
-class ChannelList extends Component {
+class FriendList extends Component {
     componentDidMount() {
         this.subscribe();
     }
 
     static query() {
         return gql`
-                query channels($room: ID!) {
-                  channels(room: $room) {
+                query friends() {
+                  channels() {
                    id
                    title
-                   operation
                  }
             }`;
     }
@@ -25,14 +24,13 @@ class ChannelList extends Component {
                   channelEvent(room: $room) {
                     id
                     title
-                    operation
                   }
                 }`;
     }
 
     subscribe = () =>
         this.props.subscriber({
-            document: ChannelList.subscription(),
+            document: FriendList.subscription(),
             variables: this.props.fetchVars,
             updateQuery: (prev, {subscriptionData}) => {
                 if (!subscriptionData.data) {
@@ -54,4 +52,4 @@ class ChannelList extends Component {
     }
 }
 
-export default ChannelList
+export default FriendList

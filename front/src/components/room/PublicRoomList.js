@@ -1,10 +1,13 @@
 import React, {Component} from 'react';
-import './css/RoomList.css'
 import Room from "./Room";
 import {List} from "@material-ui/core/index";
 import gql from "graphql-tag";
+import {ListItemSecondaryAction} from "@material-ui/core/es/index";
+import IconButton from "@material-ui/core/es/IconButton/IconButton";
+import Input from "@material-ui/core/es/Input/Input";
+import Favorite from "@material-ui/icons/es/Favorite";
 
-export default class RoomList extends Component {
+export default class PublicRoomList extends Component {
     componentDidMount() {
         this.subscribe();
     }
@@ -24,12 +27,11 @@ export default class RoomList extends Component {
     static query() {
         return gql`
                 query {
-                  rooms {
+                  publicRooms {
                    title
                    id
-                   _createdAt
                    isUserIn
-                   operation
+                   _createdAt
                   }
                   }
                 `;
@@ -37,10 +39,11 @@ export default class RoomList extends Component {
 
     static subscription() {
         return gql`
-            subscription {
-              roomEvent {
+            subscription roomEvent($private: Boolean!) {
+              roomEvent(private: $private) {
                    id
                    title
+                   isUserIn
                    _createdAt
                    isUserIn
                    operation
@@ -51,14 +54,16 @@ export default class RoomList extends Component {
 
     subscribe = () =>
         this.props.subscriber({
-            document: RoomList.subscription(),
+            document: PublicRoomList.subscription(),
+            variables: {private: true},
             updateQuery: (prev, {subscriptionData}) => {
-                console.log('RoomList:');
+                console.log('PublicRoomList:');
                 if (!subscriptionData.data) {
                     return prev;
                 }
                 const room = subscriptionData.data.roomEvent;
-                console.log('RoomList: ' + room.operation);
+
+                console.log('PublicRoomList: ' + room.operation);
                 switch (room.operation) {
                     case 'deleted':
                         break;
@@ -67,12 +72,10 @@ export default class RoomList extends Component {
                             rooms: [subscriptionData.data.roomEvent, ...prev.rooms]
                         });
                     case 'userLeft':
-                        return Object.assign({}, prev, {
-                            rooms: [...prev.rooms.filter(data => room.id !== data.id)]
-                        });
+                        return prev;
                     default:
                         return Object.assign({}, prev, {
-                            rooms: [subscriptionData.data.roomEvent, ...prev.rooms]
+                            rooms: [room, ...prev.publicRooms]
                         });
                 }
             }
@@ -81,7 +84,10 @@ export default class RoomList extends Component {
     render() {
         return <div>
             <List>
-                {this.props.data && this.props.data.rooms && this.props.data.rooms.map(room => (<Room room={room}/>))}
+                {this.props.data && this.props.data.publicRooms && this.props.data.publicRooms.map(room => (
+                    <Room room={room} showAction>
+                    </Room>
+                ))}
             </List>
         </div>
     }

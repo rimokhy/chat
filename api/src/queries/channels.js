@@ -11,7 +11,6 @@ export default {
         },
     },
     resolve: async (obj, args, context) => {
-        //TODO: ajouter tri last msg room/channel
         return await Channel.find()
             .and([{users: {"$in": [context.user._id]}}, {room: args.room}])
             .sort([['_createdAt', -1]]);

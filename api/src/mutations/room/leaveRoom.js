@@ -1,7 +1,7 @@
 import {GraphQLID, GraphQLNonNull} from 'graphql';
 import {pubsub} from '../../config';
 import {GQLRoom} from '../../GQL/model/index';
-import {Message, Room} from '../../models';
+import {Room} from '../../models';
 import Events from '../../events';
 import {Operation} from "./index";
 import HttpError from "../../GQL/httpErrors";
@@ -14,20 +14,21 @@ export default {
         }
     },
     resolve: async (obj, args, context) => {
-        try {
-            const room = await Message.findById(args.room);
-            let index;
+        const room = await Room.findOne().and([{users: {"$in": [context.user._id]}}, {_id: args.room}]);
 
-            if ((index = room.users.indexOf(context.user)) !== -1) {
-                delete room.users[index];
-                room.save();
-                room.users = [context.user];
-            }
-            room.operation = Operation.UserLeft;
-            pubsub.publish(Events.room, room);
-            return room;
-        } catch (err) {
-            throw HttpError.UnprocessableEntity('Room doesn\'t exist');
+        if (room === null) {
+            throw HttpError.UnprocessableEntity('Room doesn\'t exist or user not found in room');
         }
-    },
+        if (room.private) {
+            throw HttpError.UnprocessableEntity('Room is private');
+        }
+        room.users = room.users.filter(data => String(data._id) !== String(context.user._id));
+        console.log(room.users);
+        room.save();
+        room.isUserIn = false;
+        room.operation = Operation.UserLeft;
+        pubsub.publish(Events.room, room);
+        //TODO: trigger msg on channel general of room
+        return room;
+    }
 };

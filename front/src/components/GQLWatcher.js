@@ -4,7 +4,7 @@ import Actions from "../services/redux/actions";
 import {Mutation, Query} from "react-apollo";
 
 
-class RoomWatcher extends Component {
+class GQLWatcher extends Component {
 
     hasQuery(onFetch) {
         return onFetch;
@@ -14,8 +14,6 @@ class RoomWatcher extends Component {
         const {onAdd, onFetch, fetchVars, addVars} = this.props;
         const AddComponent = onAdd;
         const QueryComponent = onFetch;
-        console.log('GQL WAtcher');
-        console.log(addVars);
         return (
             <div>
                 {this.hasQuery(onAdd) &&
@@ -70,4 +68,4 @@ const mapDispatchToProps = dispatch => {
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(RoomWatcher);
+export default connect(mapStateToProps, mapDispatchToProps)(GQLWatcher);

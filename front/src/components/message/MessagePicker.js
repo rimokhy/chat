@@ -39,7 +39,7 @@ class MessagePicker extends Component {
         }).catch(err => {
             this.props.triggerError(true, err.response.data.message);
         }).then(() => {
-            this.props.loadingEvent(true);
+            this.props.loadingEvent(false);
         });
     };
 

@@ -13,6 +13,10 @@ export default new GraphQLObjectType({
         },
         private: {
             type: GraphQLBoolean
+        },
+        isUserIn: {
+            type: new GraphQLNonNull(GraphQLBoolean),
         }
+        //TODO: createdBy
     }, base)
 });

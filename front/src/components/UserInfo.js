@@ -10,6 +10,7 @@ import People from "@material-ui/icons/es/People";
 import {withStyles} from '@material-ui/core/styles';
 import {deepOrange, green} from "@material-ui/core/es/colors/index";
 import SvgIcon from '@material-ui/core/SvgIcon';
+import Add from "@material-ui/icons/es/Add";
 
 const styles = {
     friends: {
@@ -49,7 +50,14 @@ class UserInfo extends Component {
                 <ListItem button>
                     {user.avatar && <Avatar src={user.avatar}/>}
                     {!user.avatar && <Avatar className={classes.profile}><AccountCircle/></Avatar>}
-                    <ListItemText primary={user.username} secondary={user.email}/>
+                </ListItem>
+            </Link>
+            <Divider/>
+            <Link to="/room">
+                <ListItem button>
+                    <Avatar className={classes.friends}>
+                        <Add/>
+                    </Avatar>
                 </ListItem>
             </Link>
             <Divider/>
@@ -58,7 +66,6 @@ class UserInfo extends Component {
                     <Avatar className={classes.friends}>
                         <Logout/>
                     </Avatar>
-                    <ListItemText primary='Sign-out'/>
                 </ListItem>
             </Link>
         </div>
