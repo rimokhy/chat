@@ -14,6 +14,18 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="ChannelAction.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/pages/channel/ChannelAction.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="209">
+              <caret line="40" column="38" selection-start-line="40" selection-start-column="38" selection-end-line="40" selection-end-column="38" />
+              <folding>
+                <element signature="e#0#39#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="GQLService.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/services/GQLService.js">
           <provider selected="true" editor-type-id="text-editor">
@@ -26,14 +38,35 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="PublicRoomList.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="PublicRoomList.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/components/room/PublicRoomList.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="466">
-              <caret line="75" column="39" selection-start-line="75" selection-start-column="39" selection-end-line="75" selection-end-column="39" />
+            <state relative-caret-position="241">
+              <caret line="60" column="32" lean-forward="true" selection-start-line="60" selection-start-column="32" selection-end-line="60" selection-end-column="32" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Channel.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/components/channel/Channel.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="134">
+              <caret line="22" column="29" selection-start-line="22" selection-start-column="29" selection-end-line="22" selection-end-column="29" />
+              <folding>
+                <element signature="e#0#39#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="CustomAppBar.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/components/menu/appBar/CustomAppBar.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="224">
+              <caret line="75" column="94" selection-start-line="75" selection-start-column="94" selection-end-line="75" selection-end-column="94" />
             </state>
           </provider>
         </entry>
@@ -131,16 +164,16 @@
         <option value="$PROJECT_DIR$/src/pages/channel/Channel.js" />
         <option value="$PROJECT_DIR$/src/components/message/MessageList.js" />
         <option value="$PROJECT_DIR$/src/services/redux/actions/pushTitle.js" />
-        <option value="$PROJECT_DIR$/src/pages/channel/ChannelAction.js" />
         <option value="$PROJECT_DIR$/src/pages/room/RoomAction.js" />
         <option value="$PROJECT_DIR$/src/pages/room/Room.js" />
         <option value="$PROJECT_DIR$/src/services/redux/actions/index.js" />
         <option value="$PROJECT_DIR$/src/components/room/Room.js" />
-        <option value="$PROJECT_DIR$/src/components/channel/Channel.js" />
         <option value="$PROJECT_DIR$/src/pages/login/Login.js" />
-        <option value="$PROJECT_DIR$/src/components/menu/appBar/CustomAppBar.js" />
         <option value="$PROJECT_DIR$/src/components/room/RoomList.js" />
         <option value="$PROJECT_DIR$/src/components/room/PublicRoomList.js" />
+        <option value="$PROJECT_DIR$/src/components/channel/Channel.js" />
+        <option value="$PROJECT_DIR$/src/pages/channel/ChannelAction.js" />
+        <option value="$PROJECT_DIR$/src/components/menu/appBar/CustomAppBar.js" />
       </list>
     </option>
   </component>
@@ -223,7 +256,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="SearchEverywhereHistoryKey" value="RoomList&#9;FILE&#9;file:///home/terabyte/project/aos-challenge/front/src/components/room/RoomList.js&#10;RoomLi&#9;FILE&#9;file:///home/terabyte/project/aos-challenge/front/src/components/room/PublicRoomList.js&#10;GQLS&#9;FILE&#9;file:///home/terabyte/project/aos-challenge/front/src/services/GQLService.js&#10;./src/components/channel/Channel.js&#9;FILE&#9;file:///home/terabyte/project/aos-challenge/front/src/components/channel/Channel.js&#10;src/comp&#9;FILE&#9;file:///home/terabyte/project/aos-challenge/front/src/components&#10;Channel&#9;FILE&#9;file:///home/terabyte/project/aos-challenge/front/src/components/channel/Channel.js&#10;Room&#9;FILE&#9;file:///home/terabyte/project/aos-challenge/front/src/pages/room/Room.js&#10;Login&#9;FILE&#9;file:///home/terabyte/project/aos-challenge/front/src/pages/login/Login.js&#10;Mes&#9;FILE&#9;file:///home/terabyte/project/aos-challenge/front/src/components/message/MessageList.js&#10;Messa&#9;FILE&#9;file:///home/terabyte/project/aos-challenge/front/src/components/message/Message.js&#10;ChannelA&#9;FILE&#9;file:///home/terabyte/project/aos-challenge/front/src/pages/channel/ChannelAction.js&#10;src/components/room/PublicRoomList.js&#9;FILE&#9;file:///home/terabyte/project/aos-challenge/front/src/components/room/PublicRoomList.js&#10;App&#9;FILE&#9;file:///home/terabyte/project/aos-challenge/front/src/App.js&#10;src/components/room/RoomList.js&#9;FILE&#9;file:///home/terabyte/project/aos-challenge/front/src/components/room/RoomList.js&#10;src/components/channel/ChannelJoin.js&#9;FILE&#9;file:///home/terabyte/project/aos-challenge/front/src/components/channel/ChannelJoin.js&#10;src/components/channel/ChannelJoin.js:&#9;null&#9;null&#10;src/components/channel/RoomChannelList.js&#9;FILE&#9;file:///home/terabyte/project/aos-challenge/front/src/components/channel/RoomChannelList.js&#10;src/components/channel/ChannelPicker.js&#9;FILE&#9;file:///home/terabyte/project/aos-challenge/front/src/components/channel/ChannelPicker.js&#10;src/components/channel/ChannelList.js&#9;FILE&#9;file:///home/terabyte/project/aos-challenge/front/src/components/channel/ChannelList.js&#10;src/components/message/MessageList.js&#9;FILE&#9;file:///home/terabyte/project/aos-challenge/front/src/components/message/MessageList.js&#10;src/pages/room/RoomAction.js&#9;FILE&#9;file:///home/terabyte/project/aos-challenge/front/src/pages/room/RoomAction.js&#10;ChannelP&#9;FILE&#9;file:///home/terabyte/project/aos-challenge/front/src/components/channel/ChannelPicker.js&#10;ChannelPi&#9;FILE&#9;file:///home/terabyte/project/aos-challenge/front/src/components/channel/ChannelPicker.js&#10;ChannelL&#9;FILE&#9;file:///home/terabyte/project/aos-challenge/front/src/components/channel/ChannelList.js&#10;ChannelLea&#9;FILE&#9;file:///home/terabyte/project/aos-challenge/front/src/components/channel/ChannelLeave.js&#10;Leave&#9;FILE&#9;file:///home/terabyte/project/aos-challenge/front/src/components/channel/ChannelLeave.js&#10;ChannelAc&#9;FILE&#9;file:///home/terabyte/project/aos-challenge/front/src/pages/channel/ChannelAction.js&#10;Prof&#9;null&#9;null&#10;Custo&#9;FILE&#9;file:///home/terabyte/project/aos-challenge/front/src/components/menu/appBar/CustomAppBar.js&#10;Profi&#9;FILE&#9;file:///home/terabyte/project/aos-challenge/front/src/pages/profile/Profile.js&#10;UserI&#9;FILE&#9;file:///home/terabyte/project/aos-challenge/front/src/components/UserInfo.js&#10;Cha&#9;FILE&#9;file:///home/terabyte/project/aos-challenge/front/src/pages/channel/ChannelAction.js&#10;CustomA&#9;FILE&#9;file:///home/terabyte/project/aos-challenge/front/src/components/menu/appBar/CustomAppBar.js&#10;GQ&#9;FILE&#9;file:///home/terabyte/project/aos-challenge/front/src/components/GQLWatcher.js&#10;Logo&#9;FILE&#9;file:///home/terabyte/project/aos-challenge/front/src/pages/login/Logout.js&#10;RoomA&#9;FILE&#9;file:///home/terabyte/project/aos-challenge/front/src/pages/room/RoomAction.js&#10;RoomPi&#9;FILE&#9;file:///home/terabyte/project/aos-challenge/front/src/components/room/RoomPicker.js&#10;Picker&#9;FILE&#9;file:///home/terabyte/project/aos-challenge/front/src/components/channel/ChannelPicker.js&#10;Channe&#9;FILE&#9;file:///home/terabyte/project/aos-challenge/front/src/pages/channel/ChannelAction.js&#10;Custom&#9;FILE&#9;file:///home/terabyte/project/aos-challenge/front/src/components/menu/appBar/CustomAppBar.js&#10;List&#9;FILE&#9;file:///home/terabyte/project/aos-challenge/front/src/components/room/RoomList.js&#10;RoomL&#9;FILE&#9;file:///home/terabyte/project/aos-challenge/front/src/components/room/RoomList.js&#10;Chann&#9;FILE&#9;file:///home/terabyte/project/aos-challenge/front/src/components/channel/ChannelList.js&#10;Publ&#9;null&#9;null&#10;menuSty&#9;null&#9;null&#10;User&#9;FILE&#9;file:///home/terabyte/project/aos-challenge/front/src/components/UserInfo.js&#10;Loadi&#9;FILE&#9;file:///home/terabyte/project/aos-challenge/front/src/components/Loading.js&#10;Draw&#9;FILE&#9;file:///home/terabyte/project/aos-challenge/front/src/components/menu/drawer/CustomDrawer.js&#10;AuthS&#9;FILE&#9;file:///home/terabyte/project/aos-challenge/front/src/services/AuthService.js&#10;package.json&#9;FILE&#9;file:///home/terabyte/project/aos-challenge/front/package.json" />
+    <property name="SearchEverywhereHistoryKey" value="Channel&#9;FILE&#9;file:///home/terabyte/project/aos-challenge/front/src/components/channel/Channel.js&#10;RoomList&#9;FILE&#9;file:///home/terabyte/project/aos-challenge/front/src/components/room/RoomList.js&#10;RoomLi&#9;FILE&#9;file:///home/terabyte/project/aos-challenge/front/src/components/room/PublicRoomList.js&#10;GQLS&#9;FILE&#9;file:///home/terabyte/project/aos-challenge/front/src/services/GQLService.js&#10;./src/components/channel/Channel.js&#9;FILE&#9;file:///home/terabyte/project/aos-challenge/front/src/components/channel/Channel.js&#10;src/comp&#9;FILE&#9;file:///home/terabyte/project/aos-challenge/front/src/components&#10;Room&#9;FILE&#9;file:///home/terabyte/project/aos-challenge/front/src/pages/room/Room.js&#10;Login&#9;FILE&#9;file:///home/terabyte/project/aos-challenge/front/src/pages/login/Login.js&#10;Mes&#9;FILE&#9;file:///home/terabyte/project/aos-challenge/front/src/components/message/MessageList.js&#10;Messa&#9;FILE&#9;file:///home/terabyte/project/aos-challenge/front/src/components/message/Message.js&#10;ChannelA&#9;FILE&#9;file:///home/terabyte/project/aos-challenge/front/src/pages/channel/ChannelAction.js&#10;src/components/room/PublicRoomList.js&#9;FILE&#9;file:///home/terabyte/project/aos-challenge/front/src/components/room/PublicRoomList.js&#10;App&#9;FILE&#9;file:///home/terabyte/project/aos-challenge/front/src/App.js&#10;src/components/room/RoomList.js&#9;FILE&#9;file:///home/terabyte/project/aos-challenge/front/src/components/room/RoomList.js&#10;src/components/channel/ChannelJoin.js&#9;FILE&#9;file:///home/terabyte/project/aos-challenge/front/src/components/channel/ChannelJoin.js&#10;src/components/channel/ChannelJoin.js:&#9;null&#9;null&#10;src/components/channel/RoomChannelList.js&#9;FILE&#9;file:///home/terabyte/project/aos-challenge/front/src/components/channel/RoomChannelList.js&#10;src/components/channel/ChannelPicker.js&#9;FILE&#9;file:///home/terabyte/project/aos-challenge/front/src/components/channel/ChannelPicker.js&#10;src/components/channel/ChannelList.js&#9;FILE&#9;file:///home/terabyte/project/aos-challenge/front/src/components/channel/ChannelList.js&#10;src/components/message/MessageList.js&#9;FILE&#9;file:///home/terabyte/project/aos-challenge/front/src/components/message/MessageList.js&#10;src/pages/room/RoomAction.js&#9;FILE&#9;file:///home/terabyte/project/aos-challenge/front/src/pages/room/RoomAction.js&#10;ChannelP&#9;FILE&#9;file:///home/terabyte/project/aos-challenge/front/src/components/channel/ChannelPicker.js&#10;ChannelPi&#9;FILE&#9;file:///home/terabyte/project/aos-challenge/front/src/components/channel/ChannelPicker.js&#10;ChannelL&#9;FILE&#9;file:///home/terabyte/project/aos-challenge/front/src/components/channel/ChannelList.js&#10;ChannelLea&#9;FILE&#9;file:///home/terabyte/project/aos-challenge/front/src/components/channel/ChannelLeave.js&#10;Leave&#9;FILE&#9;file:///home/terabyte/project/aos-challenge/front/src/components/channel/ChannelLeave.js&#10;ChannelAc&#9;FILE&#9;file:///home/terabyte/project/aos-challenge/front/src/pages/channel/ChannelAction.js&#10;Prof&#9;null&#9;null&#10;Custo&#9;FILE&#9;file:///home/terabyte/project/aos-challenge/front/src/components/menu/appBar/CustomAppBar.js&#10;Profi&#9;FILE&#9;file:///home/terabyte/project/aos-challenge/front/src/pages/profile/Profile.js&#10;UserI&#9;FILE&#9;file:///home/terabyte/project/aos-challenge/front/src/components/UserInfo.js&#10;Cha&#9;FILE&#9;file:///home/terabyte/project/aos-challenge/front/src/pages/channel/ChannelAction.js&#10;CustomA&#9;FILE&#9;file:///home/terabyte/project/aos-challenge/front/src/components/menu/appBar/CustomAppBar.js&#10;GQ&#9;FILE&#9;file:///home/terabyte/project/aos-challenge/front/src/components/GQLWatcher.js&#10;Logo&#9;FILE&#9;file:///home/terabyte/project/aos-challenge/front/src/pages/login/Logout.js&#10;RoomA&#9;FILE&#9;file:///home/terabyte/project/aos-challenge/front/src/pages/room/RoomAction.js&#10;RoomPi&#9;FILE&#9;file:///home/terabyte/project/aos-challenge/front/src/components/room/RoomPicker.js&#10;Picker&#9;FILE&#9;file:///home/terabyte/project/aos-challenge/front/src/components/channel/ChannelPicker.js&#10;Channe&#9;FILE&#9;file:///home/terabyte/project/aos-challenge/front/src/pages/channel/ChannelAction.js&#10;Custom&#9;FILE&#9;file:///home/terabyte/project/aos-challenge/front/src/components/menu/appBar/CustomAppBar.js&#10;List&#9;FILE&#9;file:///home/terabyte/project/aos-challenge/front/src/components/room/RoomList.js&#10;RoomL&#9;FILE&#9;file:///home/terabyte/project/aos-challenge/front/src/components/room/RoomList.js&#10;Chann&#9;FILE&#9;file:///home/terabyte/project/aos-challenge/front/src/components/channel/ChannelList.js&#10;Publ&#9;null&#9;null&#10;menuSty&#9;null&#9;null&#10;User&#9;FILE&#9;file:///home/terabyte/project/aos-challenge/front/src/components/UserInfo.js&#10;Loadi&#9;FILE&#9;file:///home/terabyte/project/aos-challenge/front/src/components/Loading.js&#10;Draw&#9;FILE&#9;file:///home/terabyte/project/aos-challenge/front/src/components/menu/drawer/CustomDrawer.js&#10;AuthS&#9;FILE&#9;file:///home/terabyte/project/aos-challenge/front/src/services/AuthService.js&#10;package.json&#9;FILE&#9;file:///home/terabyte/project/aos-challenge/front/package.json" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="com.intellij.lang.jsgraphql.ide.injection.JSGraphQLLanguageInjectionUtil.gql" value="lokka" />
     <property name="jsgraphql-node-editor-notification" value="false" />
@@ -277,12 +310,12 @@
       <workItem from="1532818044744" duration="7825000" />
       <workItem from="1532896543197" duration="39115000" />
       <workItem from="1532953483743" duration="22405000" />
-      <workItem from="1533025845681" duration="19331000" />
+      <workItem from="1533025845681" duration="19527000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="209871000" />
+    <option name="totallyTimeSpent" value="210067000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -583,16 +616,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/pages/channel/ChannelAction.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="45" selection-start-line="45" selection-end-line="45" />
-          <folding>
-            <element signature="e#0#39#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/pages/room/RoomAction.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="256">
@@ -666,16 +689,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/channel/Channel.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="451">
-          <caret line="51" column="15" selection-start-line="51" selection-start-column="15" selection-end-line="51" selection-end-column="15" />
-          <folding>
-            <element signature="e#0#39#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/pages/login/Login.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="15">
@@ -683,13 +696,6 @@
           <folding>
             <element signature="e#0#39#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/menu/appBar/CustomAppBar.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="241">
-          <caret line="90" lean-forward="true" selection-start-line="90" selection-end-line="90" />
         </state>
       </provider>
     </entry>
@@ -715,11 +721,38 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/components/room/PublicRoomList.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="466">
-          <caret line="75" column="39" selection-start-line="75" selection-start-column="39" selection-end-line="75" selection-end-column="39" />
+        <state relative-caret-position="241">
+          <caret line="60" column="32" lean-forward="true" selection-start-line="60" selection-start-column="32" selection-end-line="60" selection-end-column="32" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/pages/channel/ChannelAction.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="209">
+          <caret line="40" column="38" selection-start-line="40" selection-start-column="38" selection-end-line="40" selection-end-column="38" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/channel/Channel.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="134">
+          <caret line="22" column="29" selection-start-line="22" selection-start-column="29" selection-end-line="22" selection-end-column="29" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/menu/appBar/CustomAppBar.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="224">
+          <caret line="75" column="94" selection-start-line="75" selection-start-column="94" selection-end-line="75" selection-end-column="94" />
         </state>
       </provider>
     </entry>

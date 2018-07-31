@@ -20,7 +20,7 @@ const styles = {
 class Channel extends Component {
     render() {
         const {classes, room, showAction} = this.props;
-
+        console.log('Chann');
         return <div>
             {!showAction && <Link to={`/${room ? `room/${room}/channel` : 'channel' }/${this.props.channel.id}`}>
                 <ListItem button>

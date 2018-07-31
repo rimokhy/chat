@@ -38,6 +38,7 @@ class ChannelAction extends Component {
         const {classes} = this.props;
         const {value} = this.state;
         const room = this.props.match.params.roomId;
+        console.log('Channel action');
         return (<div className={classes.root}>
                 <AppBar position="sticky">
                     <Tabs value={value} onChange={this.handleChange}>

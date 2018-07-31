@@ -73,14 +73,14 @@ class ClippedDrawer extends React.Component {
                 </Drawer>
                 }
                 <main className={classes.content}>
+                    <AuthGuard path="/room/:roomId?/channel/:channelId?" component={Channel}/>
                     <div className={classes.toolbar}/>
                     <Switch>
                         <Route exact path="/login" component={Login}/>
                         <AuthGuard exact path="/" component={ProfileAction}/>
                         <AuthGuard exact path="/logout" component={Logout}/>
-                        <AuthGuard exact path="/room/:roomId?/channel/:channelId?" component={Channel}/>
-                        <AuthGuard exact path="/room/:roomId?/channel" component={ChannelAction}/>
-                        <AuthGuard exact path="/room/:roomId?" component={RoomAction}/>
+                        <AuthGuard path="/room/:roomId?/channel" component={ChannelAction}/>
+                        <AuthGuard path="/room/:roomId?" component={RoomAction}/>
                     </Switch>
                 </main>
             </div>
