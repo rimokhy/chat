@@ -61,7 +61,6 @@ export default class RoomList extends Component {
                     return prev;
                 }
                 const room = subscriptionData.data.roomEvent;
-
                 switch (room.operation) {
                     case 'deleted':
                         break;
@@ -70,10 +69,12 @@ export default class RoomList extends Component {
                             rooms: [subscriptionData.data.roomEvent, ...prev.rooms]
                         });
                     case 'userLeft':
-                        return prev;
+                        return Object.assign({}, prev, {
+                            rooms: [...prev.rooms.filter(data => room.id !== data.id)]
+                        });
                     default:
                         return Object.assign({}, prev, {
-                            rooms: [room, ...prev.publicRooms]
+                            rooms: [subscriptionData.data.roomEvent, ...prev.rooms]
                         });
                 }
             }

@@ -2,8 +2,6 @@ import {GraphQLList} from 'graphql';
 
 import GraphQLRoom from '../GQL/model/room';
 import {Room} from '../models'
-import httpErrors from "../GQL/httpErrors";
-import {hasUser} from "../subscriptions/roomEvent";
 
 export default {
     type: new GraphQLList(GraphQLRoom),
