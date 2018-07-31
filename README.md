@@ -2,6 +2,9 @@
 
 Projet realisé dans le contexte d'un concours proposé par AOS
 
+https://www.facebook.com/aos.social/
+
+
 ## Technos
 
 Graphql
