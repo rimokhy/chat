@@ -1,0 +1,13 @@
+  front:
+    build: front
+    container_name: aos-front
+    depends_on:
+      - api
+    networks:
+      aos:
+        aliases:
+          - aos-front
+    ports:
+      - 80:5000
+    environment:
+      - API_HOST=aos-api
