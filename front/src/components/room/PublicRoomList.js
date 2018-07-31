@@ -57,25 +57,23 @@ export default class PublicRoomList extends Component {
             document: PublicRoomList.subscription(),
             variables: {private: true},
             updateQuery: (prev, {subscriptionData}) => {
-                console.log('PublicRoomList:');
                 if (!subscriptionData.data) {
                     return prev;
                 }
                 const room = subscriptionData.data.roomEvent;
 
-                console.log('PublicRoomList: ' + room.operation);
                 switch (room.operation) {
                     case 'deleted':
                         break;
                     case 'userJoined':
                         return Object.assign({}, prev, {
-                            rooms: [subscriptionData.data.roomEvent, ...prev.rooms]
+                            publicRooms: [subscriptionData.data.roomEvent, ...prev.publicRooms]
                         });
                     case 'userLeft':
                         return prev;
                     default:
                         return Object.assign({}, prev, {
-                            rooms: [room, ...prev.publicRooms]
+                            publicRooms: [room, ...prev.publicRooms]
                         });
                 }
             }

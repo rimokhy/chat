@@ -57,12 +57,11 @@ export default class RoomList extends Component {
         this.props.subscriber({
             document: RoomList.subscription(),
             updateQuery: (prev, {subscriptionData}) => {
-                console.log('RoomList:');
                 if (!subscriptionData.data) {
                     return prev;
                 }
                 const room = subscriptionData.data.roomEvent;
-                console.log('RoomList: ' + room.operation);
+
                 switch (room.operation) {
                     case 'deleted':
                         break;
@@ -71,12 +70,10 @@ export default class RoomList extends Component {
                             rooms: [subscriptionData.data.roomEvent, ...prev.rooms]
                         });
                     case 'userLeft':
-                        return Object.assign({}, prev, {
-                            rooms: [...prev.rooms.filter(data => room.id !== data.id)]
-                        });
+                        return prev;
                     default:
                         return Object.assign({}, prev, {
-                            rooms: [subscriptionData.data.roomEvent, ...prev.rooms]
+                            rooms: [room, ...prev.publicRooms]
                         });
                 }
             }
@@ -92,7 +89,7 @@ export default class RoomList extends Component {
                         </Avatar>
                     </ListItem>
                 </Link>
-                {this.props.data && this.props.data.rooms && this.props.data.rooms.map(room => (<Room room={room}/>))}
+                {this.props.data && this.props.data.rooms && this.props.data.rooms.map(room => (<Room room={room} showAction={this.props.showAction}/>))}
             </List>
         </div>
     }

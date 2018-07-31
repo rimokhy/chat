@@ -27,6 +27,7 @@ export default {
         let channel = await new Channel(payload).save();
         channel = await Channel.findById(channel._id).populate('users', 'email username _id');
         channel.operation = Operation.Create;
+        channel.isUserIn = true;
         pubsub.publish(Events.channel, channel);
         return channel;
     },

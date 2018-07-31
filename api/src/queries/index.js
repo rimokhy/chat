@@ -3,6 +3,7 @@ import messages from "./messages";
 import rooms from "./rooms";
 import channels from "./channels";
 import publicRooms from "./publicRooms";
+import channelsRooms from "./channelsRooms";
 
 export default new GraphQLObjectType({
   name: 'Query',
@@ -11,6 +12,7 @@ export default new GraphQLObjectType({
       messages,
       rooms,
       publicRooms,
-      channels
+      channels,
+      channelsRooms
   },
 });

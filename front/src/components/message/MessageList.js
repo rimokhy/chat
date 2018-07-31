@@ -2,23 +2,12 @@ import React, {Component} from 'react';
 import Message from "./Message";
 import {List} from "@material-ui/core/index";
 import gql from "graphql-tag";
+import ReactDOM from 'react-dom'
 
 class MessageList extends Component {
     componentDidMount() {
         this.subscribe();
     }
-
-    /*
-
-        static add() {
-            return gql`
-            mutation addMessage($title: String!) {
-              addMessage(title: $title) {
-               id
-             }
-              }`;
-        }
-    */
 
     static query() {
         return gql`
@@ -46,12 +35,17 @@ class MessageList extends Component {
                 }`;
     }
 
+    componentDidUpdate() {
+        const elem = ReactDOM.findDOMNode(this.refs.msgContainer);
+        elem.scrollTo(0, elem.scrollHeight);
+
+    }
+
     subscribe = () =>
         this.props.subscriber({
             document: MessageList.subscription(),
             variables: this.props.fetchVars,
             updateQuery: (prev, {subscriptionData}) => {
-                console.log('Msg event');
                 if (!subscriptionData.data) {
                     return prev;
                 }
@@ -63,7 +57,7 @@ class MessageList extends Component {
 
     render() {
         return <div>
-            <List dense={true}>
+            <List ref={"msgContainer"} style={{maxHeight: 500, overflow: 'auto', overflowX: 'hidden'}}>
                 {this.props.data && this.props.data.messages && this.props.data.messages.map(message => (
                     <Message message={message} channel={this.props.fetchVars.channel}/>))}
             </List>

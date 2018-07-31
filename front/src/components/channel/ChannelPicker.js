@@ -5,10 +5,7 @@ import {gql} from "apollo-boost";
 import {connect} from "react-redux";
 import {withStyles} from "@material-ui/core/styles/index";
 import Actions from "../../services/redux/actions";
-import Checkbox from "@material-ui/core/es/Checkbox/Checkbox";
 import FormGroup from "@material-ui/core/es/FormGroup/FormGroup";
-import FormControlLabel from "@material-ui/core/es/FormControlLabel/FormControlLabel";
-import {Typography} from "@material-ui/core/es/index";
 import {withRouter} from 'react-router'
 
 const styles = theme => ({
@@ -34,21 +31,19 @@ class RoomPicker extends Component {
             }`;
     }
 
-    handleChange = name => event => {
+    handleChange = event => {
         this.setState({
-            [name]: event.target.value,
+            roomTitle: event.target.value,
         });
     };
 
     onSubmit = (e) => {
         e.preventDefault();
-        console.log('Submit picker channel (match) : ' + this.props.match.roomId);
-        console.log('Submit picker channel (props) : ' + this.props.room);
         this.props.loadingEvent(true);
         this.props.mutation({
             variables: {
                 title: this.state.roomTitle,
-                room: this.props.match.roomId
+                room: this.props.match.params.roomId
             }
         }).then(data => {
             this.props.triggerError(true, 'Successfully added channel');
@@ -57,16 +52,16 @@ class RoomPicker extends Component {
         }).then(() => {
             this.props.loadingEvent(false);
         });
+
     };
 
     render() {
         const { classes } = this.props;
-        console.log('Render picker channel (match) : ' + this.props.match.roomId);
-        console.log('Render picker channel (props) : ' + this.props.room);
+        //TODO: user state fucking machine to retrieve room
         return <div>
             <form onSubmit={this.onSubmit}>
                 <FormGroup row>
-                    <TextField className={classes.item} onChange={this.handleChange('roomTitle')} label="Room title"/>
+                    <TextField className={classes.item} onChange={this.handleChange} label="Channel title"/>
                 </FormGroup>
                 <Button variant="contained" color="primary" type="submit" className={classes.item}>
                     Submit

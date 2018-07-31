@@ -3,15 +3,15 @@ import {withRouter} from 'react-router'
 import {withStyles} from '@material-ui/core/styles';
 import GQLWatcher from "../../components/GQLWatcher";
 import Grid from '@material-ui/core/Grid';
-import Button from "@material-ui/core/es/Button/Button";
-import Add from "@material-ui/icons/es/Add";
 import Typography from "@material-ui/core/es/Typography/Typography";
-import PublicRoomList from "../../components/room/PublicRoomList";
-import RoomPicker from "../../components/room/RoomPicker";
+import ChannelPicker from "../../components/channel/ChannelPicker";
 import AppBar from "@material-ui/core/es/AppBar/AppBar";
 import Tabs from "@material-ui/core/es/Tabs/Tabs";
 import Tab from "@material-ui/core/es/Tab/Tab";
-import ChannelPicker from "../../components/channel/ChannelPicker";
+import ChannelList from "../../components/channel/ChannelList";
+import {connect} from "react-redux";
+import Actions from "../../services/redux/actions";
+import RoomChannelList from "../../components/channel/RoomChannelList";
 
 const styles = theme => ({
     root: {
@@ -25,88 +25,55 @@ const styles = theme => ({
 });
 
 
-class RoomAction extends Component {
+class ChannelAction extends Component {
     state = {
-        value: 'addRoom',
+        value: 0,
     };
 
-    onAddRoom = () => {
-        this.setState({value: 'addRoom'})
-    };
-    onPublicRooms = () => {
-        this.setState({value: 'publicRooms'})
-    };
-
-    onAddChannel = () => {
-        this.setState({value: 'addChannel'})
+    handleChange = (event, value) => {
+        this.setState({value});
     };
 
     render() {
         const {classes} = this.props;
-        console.log('Render RoomAction channel (match) : ' + this.props.match.roomId);
-        console.log('Render roomAction channel (props) : ' + this.props.room);
-
+        const {value} = this.state;
+        const room = this.props.match.params.roomId;
         return (<div className={classes.root}>
-                <AppBar position="static">
-                    <Grid container spacing={24}>
-                        <Grid item xs={3}>
-                            <Button color="secondary" aria-label="Add" className={classes.button}
-                                    onClick={this.onAddRoom}>
-                                Room <Add/>
-                            </Button>
-                        </Grid>
-                        <Grid item xs={3}>
-                            <Button color="secondary" aria-label="Public rooms" className={classes.button}
-                                    onClick={this.onPublicRooms}>
-                                Public Rooms
-                            </Button>
-                        </Grid>
-                        <Grid item xs={3}>
-                            <Button color="secondary" aria-label="Public rooms" className={classes.button}
-                                    onClick={this.onAddChannel}>
-                                Channel <Add/>
-                            </Button>
-                        </Grid>
-                    </Grid>
+                <AppBar position="sticky">
+                    <Tabs value={value} onChange={this.handleChange}>
+                        <Tab label="Add Channel"/>
+                        <Tab label="Room Channels"/>
+                    </Tabs>
                 </AppBar>
 
                 {
-                    this.state.value === 'addRoom' &&
+                    this.state.value === 0 &&
                     <Grid container spacing={24}>
-                        <Grid item xs={12}>
-                            <Typography variant="headline">Add room</Typography>
-                            <GQLWatcher onAdd={RoomPicker}/>
-                        </Grid>
+                        <GQLWatcher onAdd={ChannelPicker}/>
                     </Grid>
                 }
 
                 {
-                    this.state.value === 'publicRooms' &&
-                    <Grid container spacing={24}>
-                        <Grid item xs={12}>
-                            <Typography variant="headline">Public Rooms</Typography>
-                        </Grid>
-                        <Grid item xs={12}>
-                            <GQLWatcher onFetch={PublicRoomList}/>
-                        </Grid>
-                    </Grid>
-                }
+                    this.state.value === 1 &&
+                    <GQLWatcher onFetch={RoomChannelList} fetchVars={{room}} />
 
-                {
-                    this.state.value === 'addChannel' &&
-                    <Grid container spacing={24}>
-                        <Grid item xs={12}>
-                            <Typography variant="headline">Add channel</Typography>
-                        </Grid>
-                        <Grid item xs={12}>
-                            <GQLWatcher onAdd={ChannelPicker}/>
-                        </Grid>
-                    </Grid>
                 }
-
             </div>
         );
     }
 }
 
-export default withRouter(withStyles(styles)(RoomAction));
+
+const mapStateToProps = state => {
+    return {room: state.ON_NAV.room, channel: state.ON_NAV.channel}
+};
+
+const mapDispatchToProps = dispatch => {
+    return {
+        onRoom: (room, channel) => {
+            dispatch(Actions.onRoom(room, channel));
+        },
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(withStyles({})(ChannelAction)));

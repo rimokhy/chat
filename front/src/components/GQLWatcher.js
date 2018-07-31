@@ -14,7 +14,6 @@ class GQLWatcher extends Component {
         const {onAdd, onFetch, fetchVars, addVars} = this.props;
         const AddComponent = onAdd;
         const QueryComponent = onFetch;
-        console.log(addVars);
         return (
             <div>
                 {this.hasQuery(onAdd) &&
@@ -33,7 +32,7 @@ class GQLWatcher extends Component {
                             {error && this.props.triggerError(true, error)}
                             {loading && this.props.loadingEvent(true)}
                             {!loading && this.props.loadingEvent(false)}
-                            <QueryComponent {...result} subscriber={subscribeToMore} fetchVars={fetchVars || {}}/>
+                            <QueryComponent {...result} subscriber={subscribeToMore} fetchVars={fetchVars || {}} showAction={this.props.showAction}/>
                         </div>
                     )}
                 </Query>

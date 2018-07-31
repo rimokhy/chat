@@ -21,7 +21,7 @@ const styles = {
     },
 };
 
-let Logout = (props) => (
+export let Logout = (props) => (
     <SvgIcon {...props}>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
             <path d="M192 277.4h189.7l-43.6 44.7L368 352l96-96-96-96-31 29.9 44.7 44.7H192v42.8z"/>

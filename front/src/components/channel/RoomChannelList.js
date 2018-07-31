@@ -3,41 +3,42 @@ import {List} from "@material-ui/core/index";
 import Channel from "./Channel";
 import gql from "graphql-tag";
 
-class ChannelList extends Component {
+class RoomChannelList extends Component {
     componentDidMount() {
         this.subscribe();
     }
 
     static query() {
         return gql`
-                query channels($room: ID!) {
-                  channels(room: $room) {
+                query channelsRooms($room: ID!) {
+                  channelsRooms(room: $room) {
                    id
                    title
-                   isUserIn
+                   operation
+                    isUserIn
                  }
             }`;
     }
 
     static subscription() {
         return gql`
-                subscription channelEvent($room: ID!) {
-                  channelEvent(room: $room) {
+                subscription channelEvent($room: ID!, $fetchRoom: Boolean) {
+                  channelEvent(room: $room, fetchRoom: $fetchRoom) {
                     id
-                    isUserIn
                     title
                     operation
+                    isUserIn
                   }
                 }`;
     }
 
-    isValid = () => {
-        return this.props.data && this.props.data.channels;
-    }
     subscribe = () =>
         this.props.subscriber({
-            document: ChannelList.subscription(),
-            variables: this.props.fetchVars,
+            document: RoomChannelList.subscription(),
+            variables: {
+                room: this.props.fetchVars.room,
+                fetchRoom: true
+            },
             updateQuery: (prev, {subscriptionData}) => {
                 if (!subscriptionData.data) {
                     return prev;
@@ -48,13 +49,13 @@ class ChannelList extends Component {
                         break;
                     case 'userJoined':
                         return Object.assign({}, prev, {
-                            channels: [channel, ...prev.channels]
+                            channelsRooms: [channel, ...prev.channelsRooms]
                         });
                     case 'userLeft':
                         return prev;
                     default:
                         return Object.assign({}, prev, {
-                            channels: [channel, ...prev.channels]
+                            channelsRooms: [channel, ...prev.channelsRooms]
                         });
                 }
             }
@@ -62,12 +63,14 @@ class ChannelList extends Component {
 
     render() {
         return <div>
+
             <List>
-                {this.isValid() && this.props.data.channels.map(channel => (
-                    <Channel channel={channel} room={this.props.fetchVars.room}/>))}
+                {this.props.data && this.props.data.channelsRooms && this.props.data.channelsRooms.map(channel => (
+                    <Channel channel={channel} room={this.props.fetchVars.room} showAction/>))}
             </List>
+
         </div>
     }
 }
 
-export default ChannelList
+export default RoomChannelList

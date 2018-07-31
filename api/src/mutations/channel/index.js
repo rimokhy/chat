@@ -1,4 +1,6 @@
 import addChannel from './addChannel';
+import joinChannel from './joinChannel'
+import leaveChannel from './leaveChannel'
 
 const Operation = {
     Create: 'created',
@@ -7,4 +9,4 @@ const Operation = {
     UserJoin: 'userJoined',
     UserLeft: 'userLeft'
 };
-export {addChannel, Operation}
+export {addChannel, joinChannel, leaveChannel, Operation}

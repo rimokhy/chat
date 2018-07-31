@@ -20,24 +20,20 @@ import Logout from "../../../pages/login/Logout";
 import RoomAction from "../../../pages/room/RoomAction";
 import ChannelAction from "../../../pages/channel/ChannelAction";
 
-const mapStateToProps = state => {
-    return {}
-};
-
-const mapDispatchToProps = dispatch => {
-    return {
-        menuToggle: (bool) => {
-            dispatch(Actions.menuToggle(bool));
-        }
-    };
-};
-
+const ProfileAction = (props) => (
+    <div>Profile actions not implemented yet</div>
+)
 
 class ClippedDrawer extends React.Component {
     state = {};
 
+    componentDidMount() {
+    }
+
     handleClick = () => {
-        this.props.menuToggle(true);
+        if (Auth.isAuth()) {
+            this.props.menuToggle(true);
+        }
     };
 
     render() {
@@ -51,7 +47,7 @@ class ClippedDrawer extends React.Component {
                             <MenuIcon/>
                         </IconButton>
                         <Typography variant="title" color="inherit" noWrap>
-                            Clipped drawer
+                            AOS - Chat
                         </Typography>
                         {!(Auth.isAuth()) && <div>
                             <Button variant="contained" color="secondary">
@@ -78,12 +74,13 @@ class ClippedDrawer extends React.Component {
                 }
                 <main className={classes.content}>
                     <div className={classes.toolbar}/>
-                    <AuthGuard path="/room/:roomId/channel/:channelId?" component={Channel}/>
                     <Switch>
                         <Route exact path="/login" component={Login}/>
+                        <AuthGuard exact path="/" component={ProfileAction}/>
                         <AuthGuard exact path="/logout" component={Logout}/>
+                        <AuthGuard exact path="/room/:roomId?/channel/:channelId?" component={Channel}/>
+                        <AuthGuard exact path="/room/:roomId?/channel" component={ChannelAction}/>
                         <AuthGuard exact path="/room/:roomId?" component={RoomAction}/>
-                        <AuthGuard path="/room/:roomId/channel/:channelId?" component={ChannelAction}/>
                     </Switch>
                 </main>
             </div>
@@ -91,5 +88,17 @@ class ClippedDrawer extends React.Component {
     }
 }
 
+
+const mapStateToProps = state => {
+    return {}
+};
+
+const mapDispatchToProps = dispatch => {
+    return {
+        menuToggle: (bool) => {
+            dispatch(Actions.menuToggle(bool));
+        }
+    };
+};
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(withStyles(menuStyles)(ClippedDrawer)));

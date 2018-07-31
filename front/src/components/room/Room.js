@@ -5,12 +5,13 @@ import {Avatar, ListItem, ListItemText} from "@material-ui/core/index";
 import {MeetingRoom} from '@material-ui/icons'
 import {Link} from 'react-router-dom';
 import {withStyles} from '@material-ui/core/styles';
-import {IconButton, ListItemSecondaryAction} from "@material-ui/core/es/index";
-import Favorite from "@material-ui/icons/es/Favorite";
+import {ListItemSecondaryAction} from "@material-ui/core/es/index";
 import GQLWatcher from "../GQLWatcher";
 import RoomJoin from "./RoomJoin";
 import RoomLeave from "./RoomLeave";
-import Icon from "@material-ui/core/es/Icon/Icon";
+import {withRouter} from "react-router";
+import {connect} from "react-redux";
+import Actions from "../../services/redux/actions";
 
 const styles = {
     avatar: {

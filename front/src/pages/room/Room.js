@@ -7,13 +7,16 @@ import {Link} from "react-router-dom";
 import ListItem from "@material-ui/core/es/ListItem/ListItem";
 import Avatar from "@material-ui/core/es/Avatar/Avatar";
 import Add from "@material-ui/icons/es/Add";
+import {withStyles} from "@material-ui/core/styles/index";
+import {connect} from "react-redux";
+import Actions from "../../services/redux/actions";
+import ListItemText from "@material-ui/core/es/ListItemText/ListItemText";
 
 class Room extends Component {
+
     render() {
         const {classes} = this.props;
-        console.log('room render');
         const room = this.props.match.params.roomId;
-        console.log(room);
         return (
             <div>
                 {
@@ -23,14 +26,25 @@ class Room extends Component {
                             <Avatar>
                                 <Add/>
                             </Avatar>
+                            <ListItemText primary="Channels"/>
                         </ListItem>
                     </Link>
                 }
-                <GQLWatcher onFetch={room ? ChannelList : RoomList} fetchVars={{room}}>
+                <GQLWatcher onFetch={room ? ChannelList : RoomList} fetchVars={{room}} showAction>
                 </GQLWatcher>
             </div>
         );
     }
 }
 
-export default withRouter(Room);
+
+const mapStateToProps = state => {
+    return {}
+};
+
+const mapDispatchToProps = dispatch => {
+    return {
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(withStyles({})(Room)));

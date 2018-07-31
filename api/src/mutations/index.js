@@ -2,6 +2,8 @@ import {GraphQLObjectType} from 'graphql';
 import {addMessage, updateMessage, removeMessage} from './message';
 import {addRoom, removeRoom, joinRoom, leaveRoom} from './room'
 import {addChannel} from './channel';
+import joinChannel from "./channel/joinChannel";
+import leaveChannel from "./channel/leaveChannel";
 
 export default new GraphQLObjectType({
     name: 'Mutation',
@@ -14,6 +16,8 @@ export default new GraphQLObjectType({
         removeRoom,
         joinRoom,
         leaveRoom,
-        addChannel
+        addChannel,
+        joinChannel,
+        leaveChannel
     }
 });

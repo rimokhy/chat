@@ -17,13 +17,9 @@ export default {
         const room = await Room.findOne().and([{users: {"$in": [context.user._id]}}, {_id: args.room}]);
 
         if (room === null) {
-            throw HttpError.UnprocessableEntity('Room doesn\'t exist or user not found in room');
-        }
-        if (room.private) {
-            throw HttpError.UnprocessableEntity('Room is private');
+            throw HttpError.UnprocessableEntity('Room doesn\'t exist or user not found in it');
         }
         room.users = room.users.filter(data => String(data._id) !== String(context.user._id));
-        console.log(room.users);
         room.save();
         room.isUserIn = false;
         room.operation = Operation.UserLeft;

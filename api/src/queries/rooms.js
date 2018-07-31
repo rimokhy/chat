@@ -3,6 +3,7 @@ import {GraphQLList} from 'graphql';
 import GraphQLRoom from '../GQL/model/room';
 import {Room} from '../models'
 import httpErrors from "../GQL/httpErrors";
+import {hasUser} from "../subscriptions/roomEvent";
 
 export default {
     type: new GraphQLList(GraphQLRoom),
@@ -14,9 +15,9 @@ export default {
             }
         }).sort([['_createdAt', -1]]);
         if (room) {
-            room = await room.map(room => {
-                room.isUserIn = true;
-                return room;
+            await room.forEach((data, index) => {
+                data.isUserIn = true;
+                room[index] = data;
             });
         }
         return room;

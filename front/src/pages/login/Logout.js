@@ -12,7 +12,6 @@ class Logout extends Component {
 
     componentDidMount() {
         this.props.loadingEvent(true);
-        console.log(Auth.token);
         Auth.logout().then(res => {
         }).catch(err => {
         }).then(() => {

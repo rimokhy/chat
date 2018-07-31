@@ -5,6 +5,14 @@ import {gql} from "apollo-boost";
 import {connect} from "react-redux";
 import {withStyles} from "@material-ui/core/styles/index";
 import Actions from "../../services/redux/actions";
+import InputAdornment from "@material-ui/core/es/InputAdornment/InputAdornment";
+import IconButton from "@material-ui/core/es/IconButton/IconButton";
+import Forward from "@material-ui/icons/es/Forward";
+import Icon from "@material-ui/core/es/Icon/Icon";
+import FormControl from "@material-ui/core/es/FormControl/FormControl";
+import VisibilityOff from "@material-ui/icons/es/VisibilityOff";
+import InputLabel from "@material-ui/core/es/InputLabel/InputLabel";
+import Input from "@material-ui/core/es/Input/Input";
 
 class MessagePicker extends Component {
     state = {
@@ -42,14 +50,31 @@ class MessagePicker extends Component {
             this.props.loadingEvent(false);
         });
     };
+    handleMouse = event => {
+        event.preventDefault();
+    };
 
     render() {
         return <div>
             <form className="formContainer" onSubmit={this.onSubmit}>
-                <TextField onChange={this.handleChange('msgContent')}  label="Write message" />
-                <Button variant="contained" color="primary" type="submit">
-                    Submit
-                </Button>
+                <FormControl
+                    fullWidth>
+                    <Input
+                        id="adornment-password"
+                        value={this.state.msgContent}
+                        onChange={this.handleChange('msgContent')}
+                        endAdornment={
+                            <InputAdornment position="end">
+                                <IconButton
+                                    aria-label="Send"
+                                    type={'submit'}
+                                >
+                                    <Icon>send</Icon>
+                                </IconButton>
+                            </InputAdornment>
+                        }
+                    />
+                </FormControl>
             </form>
         </div>
     }

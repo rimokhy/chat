@@ -35,11 +35,6 @@ class App extends Component {
         })
     }
 
-    onRoomClick = (e) => {
-        console.log('Clicked');
-        this.props.history.push('/room')
-    }
-
     render() {
         const {classes} = this.props;
 

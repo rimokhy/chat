@@ -12,6 +12,8 @@ import AppBar from "@material-ui/core/es/AppBar/AppBar";
 import Tabs from "@material-ui/core/es/Tabs/Tabs";
 import Tab from "@material-ui/core/es/Tab/Tab";
 import ChannelPicker from "../../components/channel/ChannelPicker";
+import {connect} from "react-redux";
+import Actions from "../../services/redux/actions";
 
 const styles = theme => ({
     root: {
@@ -27,83 +29,38 @@ const styles = theme => ({
 
 class RoomAction extends Component {
     state = {
-        value: 'addRoom',
+        value: 0,
     };
 
-    onAddRoom = () => {
-        this.setState({value: 'addRoom'})
-    };
-    onPublicRooms = () => {
-        this.setState({value: 'publicRooms'})
-    };
-
-    onAddChannel = () => {
-        this.setState({value: 'addChannel'})
+    handleChange = (event, value) => {
+        this.setState({value});
     };
 
     render() {
         const {classes} = this.props;
-        console.log('Render RoomAction channel (match) : ' + this.props.match.roomId);
-        console.log('Render roomAction channel (props) : ' + this.props.room);
+        const {value} = this.state;
 
         return (<div className={classes.root}>
                 <AppBar position="static">
-                    <Grid container spacing={24}>
-                        <Grid item xs={3}>
-                            <Button color="secondary" aria-label="Add" className={classes.button}
-                                    onClick={this.onAddRoom}>
-                                Room <Add/>
-                            </Button>
-                        </Grid>
-                        <Grid item xs={3}>
-                            <Button color="secondary" aria-label="Public rooms" className={classes.button}
-                                    onClick={this.onPublicRooms}>
-                                Public Rooms
-                            </Button>
-                        </Grid>
-                        <Grid item xs={3}>
-                            <Button color="secondary" aria-label="Public rooms" className={classes.button}
-                                    onClick={this.onAddChannel}>
-                                Channel <Add/>
-                            </Button>
-                        </Grid>
-                    </Grid>
+                    <Tabs value={value} onChange={this.handleChange}>
+                        <Tab label="Add Room"/>
+                        <Tab label="Public Rooms"/>
+                    </Tabs>
                 </AppBar>
 
                 {
-                    this.state.value === 'addRoom' &&
+                    this.state.value === 0 &&
                     <Grid container spacing={24}>
-                        <Grid item xs={12}>
-                            <Typography variant="headline">Add room</Typography>
-                            <GQLWatcher onAdd={RoomPicker}/>
-                        </Grid>
+                        <GQLWatcher onAdd={RoomPicker}/>
                     </Grid>
                 }
 
                 {
-                    this.state.value === 'publicRooms' &&
+                    this.state.value === 1 &&
                     <Grid container spacing={24}>
-                        <Grid item xs={12}>
-                            <Typography variant="headline">Public Rooms</Typography>
-                        </Grid>
-                        <Grid item xs={12}>
-                            <GQLWatcher onFetch={PublicRoomList}/>
-                        </Grid>
+                        <GQLWatcher onFetch={PublicRoomList}/>
                     </Grid>
                 }
-
-                {
-                    this.state.value === 'addChannel' &&
-                    <Grid container spacing={24}>
-                        <Grid item xs={12}>
-                            <Typography variant="headline">Add channel</Typography>
-                        </Grid>
-                        <Grid item xs={12}>
-                            <GQLWatcher onAdd={ChannelPicker}/>
-                        </Grid>
-                    </Grid>
-                }
-
             </div>
         );
     }
